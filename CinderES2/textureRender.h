@@ -28,24 +28,24 @@ class textureRender{
 private:
 	GLuint program;
 	GLint uWorldMatrix;
-	GLint utexture;
 	
 	GLuint interfaceTextureId;
 	
 	bool isSetup;
 	static textureRender* instance;
 	
-	ci::gl::Texture texture;
 	
 public:
 	void drawLine(const ci::Vec3f &start, const ci::Vec3f &end );
 	void drawMesh(const ci::TriMesh mesh);
 	void drawMesh(const ci::TriMesh mesh,GLint shape);
-	
+	void drawTexture(const ci::gl::Texture& texture);
 	
 	
 	void setCameraMatrix(ci::Matrix44f worldMatrix);
-	void bindTexture(const ci::gl::Texture texture);
+	void bindTexture(const ci::gl::Texture& texture);
+	void unbindTexture(const ci::gl::Texture& texture);
+
 	void setLineWidth(const float width);
 	
 	

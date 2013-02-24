@@ -16,6 +16,8 @@
 
 #include "cinder/Camera.h"
 #include "cinder/TriMesh.h"
+#include "cinder/gl/Texture.h"
+
 #include "gl2.h"
 
 //#include "colorRender.h"
@@ -24,6 +26,24 @@ class mainController{
 
 private:
 	
+    ci::gl::Texture texture;
+    ci::CameraPersp cameraPersp;
+    
+    GLuint _vertexArray;
+    GLuint _vertexBuffer;
+    
+    
+    GLuint program;
+    GLint uWorldMatrix;
+    
+    ci::TriMesh mesh;
+	ci::CameraOrtho camera;
+    
+	//colorRender mColorRender;
+	
+	std::vector<ci::Vec2f> activeTouches;
+
+
 public:
 	
 	//mainController();
@@ -38,21 +58,6 @@ public:
 
 
 
-    ci::CameraPersp cameraPersp;
-
-    GLuint _vertexArray;
-    GLuint _vertexBuffer;
-    
-
-    GLuint program;
-    GLint uWorldMatrix;
-    
-    ci::TriMesh mesh;
-	ci::CameraOrtho camera;
-    
-	//colorRender mColorRender;
-	
-	std::vector<ci::Vec2f> activeTouches;
 	
 	void setActiveTouches(std::vector<ci::Vec2f> touches);
 	void touchesBegan(std::vector<ci::Vec2f> touches);

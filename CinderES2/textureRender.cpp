@@ -10,9 +10,6 @@
 #include "shaderLoader.h"
 #include "checkError.h"
 
-#include "cinder/ImageIo.h"
-#include "cinder/app/AppBasic.h"
-
 
 using namespace ci;
 
@@ -122,10 +119,7 @@ void textureRender::setup(){
 	
 	isSetup = true;
 	gl2::CheckForErrors();
-	
-	texture = ci::loadImage(ci::app::loadResource("1.png"));
-	std::cout << "texture loaded " << texture.getWidth() << std::endl;
-	
+    
 	
 }
 
@@ -138,14 +132,19 @@ void textureRender::setCameraMatrix(ci::Matrix44f worldMatrix){
 	
 }
 
-void textureRender::bindTexture(const ci::gl::Texture texture)
+void textureRender::bindTexture(const ci::gl::Texture &texture)
 {
-//	glUseProgram(program);
-//	glUniform4fv (utexture,1, texture);
-//	glUseProgram(0);
-//	
-//	gl2::CheckForErrors();
+    texture.bind();
+	gl2::CheckForErrors();
 }
+
+void textureRender::unbindTexture(const ci::gl::Texture &texture)
+{
+    texture.unbind();
+	gl2::CheckForErrors();
+}
+
+
 
 void textureRender::setLineWidth(const float width){
 	glLineWidth(width);
@@ -170,6 +169,26 @@ void textureRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 	
 }
 
+void textureRender::drawTexture(const ci::gl::Texture& texture){
+
+//    ci::TriMesh mesh;
+//
+//    mesh.appendVertex(Vec3f(100,500,-0.1));
+//    mesh.appendVertex(Vec3f(10,0,-0.1));
+//    mesh.appendVertex(Vec3f(310,0,-0.1));
+//    
+//	// not implemented
+//    //    mesh.appendColorRGB(Color(1,1,0));
+//    //    mesh.appendColorRGB(Color(1,0,1));
+//    //    mesh.appendColorRGB(Color(1,0,1));
+//	
+//	mesh.appendTexCoord(Vec2f(1,1));
+//	mesh.appendTexCoord(Vec2f(0,0));
+//	mesh.appendTexCoord(Vec2f(1,0));
+
+    
+}
+
 
 void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 
@@ -179,7 +198,6 @@ void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
     glEnableVertexAttribArray(ATTRIB_VERTEX);
 	
 	
-	texture.bind();
 	gl2::CheckForErrors();
 
 	
@@ -194,7 +212,6 @@ void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 	glDisableVertexAttribArray(ATTRIB_VERTEX);
 	glDisableVertexAttribArray(ATTRIB_UV);
 
-	texture.unbind();
 
 	glUseProgram(0);
 	//glDisable  (GL_BLEND);

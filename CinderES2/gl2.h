@@ -41,6 +41,17 @@ namespace gl2 {
 	}
 	
 
+    inline void bindTexture(const ci::gl::Texture& texture){
+        textureRender::Instance()->bindTexture(texture);
+    }
+
+    inline void unbindTexture(const ci::gl::Texture& texture){
+        textureRender::Instance()->unbindTexture(texture);
+    }
+    
+    inline void drawTexture(const ci::gl::Texture &texture){
+        textureRender::Instance()->drawTexture(texture);
+    }
 
 }
 

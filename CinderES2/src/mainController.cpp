@@ -9,6 +9,9 @@
 #include "mainController.h"
 #include "cinder/app/AppBasic.h"
 #include  "QuartzCore/QuartzCore.h"
+#include "cinder/ImageIo.h"
+#include "cinder/app/AppBasic.h"
+
 
 using namespace ci;
 using namespace app;
@@ -30,9 +33,9 @@ void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
 
 void mainController::setup(){
 	
-    mesh.appendVertex(Vec3f(100,500,-0.1));
-    mesh.appendVertex(Vec3f(10,0,-0.1));
-    mesh.appendVertex(Vec3f(310,0,-0.1));
+    mesh.appendVertex(Vec3f(100,300,-0.1));
+    mesh.appendVertex(Vec3f(10,10,-0.1));
+    mesh.appendVertex(Vec3f(310,10,-0.1));
     
 	// not implemented
 //    mesh.appendColorRGB(Color(1,1,0));
@@ -44,6 +47,11 @@ void mainController::setup(){
 	mesh.appendTexCoord(Vec2f(1,0));
 
 	setLineWidth(8);
+    
+    
+    texture = ci::loadImage(ci::app::loadResource("1.png"));
+	std::cout << "texture loaded " << texture.getWidth() << std::endl;
+
 
 }
 
@@ -66,7 +74,12 @@ void mainController::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.15f, 0.3, 0.15f, 1.0f);
 	
+    bindTexture(texture);
 	drawMesh(mesh);
+    unbindTexture(texture);
+    
+    
+    drawTexture(texture);
 	
 	setColor(ColorA(0,1,1,1));
 	
