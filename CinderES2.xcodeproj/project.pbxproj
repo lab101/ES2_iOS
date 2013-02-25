@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		019E8CDE16CD253E001D7D91 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019E8CDD16CD253E001D7D91 /* CoreText.framework */; };
+		01A3F1F216DAB95F00BB10D0 /* uiSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1EC16DAB95F00BB10D0 /* uiSprite.cpp */; };
+		01A3F1F316DAB95F00BB10D0 /* uiSpriteButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1EE16DAB95F00BB10D0 /* uiSpriteButton.cpp */; };
+		01A3F1F416DAB95F00BB10D0 /* uiSpriteRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */; };
 		1547CD3E16D78E0000B51B85 /* textureRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1547CD3C16D78E0000B51B85 /* textureRender.cpp */; };
 		1547CD4316D79D3500B51B85 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1547CD4216D79D3500B51B85 /* test.jpg */; };
 		1547CD8416D7B77C00B51B85 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1547CD8316D7B77C00B51B85 /* 1.png */; };
@@ -39,6 +42,12 @@
 /* Begin PBXFileReference section */
 		019E8CDD16CD253E001D7D91 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		019E8CE216CD8B8F001D7D91 /* checkError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = checkError.h; sourceTree = "<group>"; };
+		01A3F1EC16DAB95F00BB10D0 /* uiSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiSprite.cpp; path = ui/uiSprite.cpp; sourceTree = "<group>"; };
+		01A3F1ED16DAB95F00BB10D0 /* uiSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiSprite.h; path = ui/uiSprite.h; sourceTree = "<group>"; };
+		01A3F1EE16DAB95F00BB10D0 /* uiSpriteButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiSpriteButton.cpp; path = ui/uiSpriteButton.cpp; sourceTree = "<group>"; };
+		01A3F1EF16DAB95F00BB10D0 /* uiSpriteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiSpriteButton.h; path = ui/uiSpriteButton.h; sourceTree = "<group>"; };
+		01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiSpriteRender.cpp; path = ui/uiSpriteRender.cpp; sourceTree = "<group>"; };
+		01A3F1F116DAB95F00BB10D0 /* uiSpriteRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiSpriteRender.h; path = ui/uiSpriteRender.h; sourceTree = "<group>"; };
 		1547CD3C16D78E0000B51B85 /* textureRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textureRender.cpp; sourceTree = "<group>"; };
 		1547CD3D16D78E0000B51B85 /* textureRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textureRender.h; sourceTree = "<group>"; };
 		1547CD4216D79D3500B51B85 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
@@ -100,6 +109,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01A3F1EA16DAB8C500BB10D0 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				01A3F1EC16DAB95F00BB10D0 /* uiSprite.cpp */,
+				01A3F1ED16DAB95F00BB10D0 /* uiSprite.h */,
+				01A3F1EE16DAB95F00BB10D0 /* uiSpriteButton.cpp */,
+				01A3F1EF16DAB95F00BB10D0 /* uiSpriteButton.h */,
+				01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */,
+				01A3F1F116DAB95F00BB10D0 /* uiSpriteRender.h */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
 		15450B7F16D61E1D00903302 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +183,7 @@
 		154EA0F316CBF5D0006E7F9A /* CinderES2 */ = {
 			isa = PBXGroup;
 			children = (
+				01A3F1EA16DAB8C500BB10D0 /* ui */,
 				1547CD3F16D79CED00B51B85 /* Resources */,
 				15450B7F16D61E1D00903302 /* iOS */,
 				154EA12316CE7B11006E7F9A /* GL2 */,
@@ -278,6 +301,9 @@
 				154EA12616CE8621006E7F9A /* colorRender.cpp in Sources */,
 				155DEED316D77F9C0087027C /* gl2.cpp in Sources */,
 				1547CD3E16D78E0000B51B85 /* textureRender.cpp in Sources */,
+				01A3F1F216DAB95F00BB10D0 /* uiSprite.cpp in Sources */,
+				01A3F1F316DAB95F00BB10D0 /* uiSpriteButton.cpp in Sources */,
+				01A3F1F416DAB95F00BB10D0 /* uiSpriteRender.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +352,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -356,6 +383,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -376,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CINDER_PATH = ../../;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -408,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CINDER_PATH = ../../;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

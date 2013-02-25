@@ -9,7 +9,7 @@
 #ifndef __CinderES2__main__
 #define __CinderES2__main__
 
-#include <iostream>
+//#include <iostream>
 #include "cinder/app/AppBasic.h"
 #include "cinder/Timeline.h"
 #include "cinder/TimelineItem.h"
