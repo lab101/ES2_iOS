@@ -43,7 +43,9 @@ void textureRender::setup(){
     "void main()                 \n"
     "{                           \n"
     "   gl_Position = modelViewProjectionMatrix * position; \n"
-	"	uvVarying = uv;		\n"
+	"	uvVarying.x = uv.x; \n"
+	"	uvVarying.y = 1.0 -uv.y; \n"
+//	"	uvVarying = uv;		\n"
 
     "}                           \n";
     
@@ -55,8 +57,8 @@ void textureRender::setup(){
     "void main()									\n"
     "{												\n"
     "  gl_FragColor = texture2D(texture, uvVarying.xy);		\n"
-    "  //gl_FragColor.a   *= uvVarying.z;						\n"
-    "  //gl_FragColor.xyz /= gl_FragColor.a;					\n"
+    " // gl_FragColor.a   *= uvVarying.z;						\n"
+    "  gl_FragColor.xyz /= gl_FragColor.a;					\n"
     "}														\n";
 	
 	
@@ -220,4 +222,41 @@ void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 	gl2::CheckForErrors();
 
 }
+
+
+void textureRender::drawSprite(uiSprite& sprite){
+	if(!sprite.isTextureLoaded) return;
+	glUseProgram(program);
+
+	
+	bindTexture(sprite.getTexture());
+	//sprite.getTexture().bind();
+	//  std::cout << "id from sprite obj " << sprite.getTexture().getId() << "\n-----\n"  << std::endl;
+	
+    
+    //std::cout << sprite.getTexture().getId();
+	GLfloat *pointer = sprite.data;
+    glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 6 * sizeof(GLfloat), pointer);
+	glEnableVertexAttribArray(ATTRIB_VERTEX);
+
+    pointer +=3;
+    glVertexAttribPointer(ATTRIB_UV, 3, GL_FLOAT, 0, 6 * sizeof(GLfloat), pointer);
+	glEnableVertexAttribArray(ATTRIB_UV);
+
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+	sprite.getTexture().unbind();
+	
+	glDisableVertexAttribArray(ATTRIB_VERTEX);
+	glDisableVertexAttribArray(ATTRIB_UV);
+
+	glUseProgram(0);
+	//glDisable  (GL_BLEND);
+	
+	
+	gl2::CheckForErrors();
+
+
+}
+
 

@@ -10,25 +10,28 @@
 #define __TouchGallery__uiSpriteButton__
 #define BOOST_INTEL_STDCXX0X
 
-#include <boost/signals.hpp>
+//#include <boost/signals.hpp>
 
 #include <iostream>
 #include "uiSprite.h"
 #include "cinder/app/AppBasic.h"
 
-#define BOOST_INTEL_STDCXX0X
+#include "Signal.h"
+#include "Delegate.h"
 
+using namespace Gallant;
 
 class uiSpriteButton : public uiSprite{
 	
 public:
 	//uiSpriteButton();
 	void setup();
-	
+	Signal1< uiSpriteButton* > onClicked;
+
 	//boost::signals2::signal<void(uiSpriteButton* button)> onClicked;
 	//boost::signals::signal<void(uiSpriteButton* button)> onClicked;
 //     boost::signals::connection mCallbacks;
-    boost::signal<void ()> onClicked;
+  //  boost::signal<void ()> onClicked;
 
 	std::string argument;
 	

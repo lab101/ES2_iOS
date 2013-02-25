@@ -21,6 +21,9 @@ using namespace app;
 
 void uiSpriteButton::setup(){
 	//AppBasic::get()->registerMouseDown(this,&uiSpriteButton::mouseDown);
+	
+//	uiSpriteButton test;
+	onClicked(this);
 }
 
 bool uiSpriteButton::mouseDown(ci::app::MouseEvent event){
@@ -28,7 +31,7 @@ bool uiSpriteButton::mouseDown(ci::app::MouseEvent event){
 	if(getBoundingBox().contains(event.getPos()))
 	{
 //		onClicked(this);
-        		onClicked();
+     //   		onClicked();
 		timeline().apply( &mScale, 0.9f, 0.1f, EaseInCubic()).updateFn(std::bind( &uiSprite::setDirty, this ));
 		timeline().appendTo( &mScale, 1.0f, 0.1f, EaseInCubic()).updateFn(std::bind( &uiSprite::setDirty, this ));
 		return true;

@@ -37,6 +37,7 @@
 		154EA12216CC1096006E7F9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA11E16CC1061006E7F9A /* QuartzCore.framework */; };
 		154EA12616CE8621006E7F9A /* colorRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 154EA12416CE8621006E7F9A /* colorRender.cpp */; };
 		155DEED316D77F9C0087027C /* gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 155DEED116D77F9C0087027C /* gl2.cpp */; };
+		15747B7B16DBC58A001EFA87 /* btnStart.png in Resources */ = {isa = PBXBuildFile; fileRef = 15747B7A16DBC58A001EFA87 /* btnStart.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,9 @@
 		154EA12816CE961A006E7F9A /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		155DEED116D77F9C0087027C /* gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl2.cpp; sourceTree = "<group>"; };
 		155DEED216D77F9C0087027C /* gl2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl2.h; sourceTree = "<group>"; };
+		15747B7816DB9317001EFA87 /* Delegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Delegate.h; sourceTree = "<group>"; };
+		15747B7916DB9317001EFA87 /* Signal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
+		15747B7A16DBC58A001EFA87 /* btnStart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnStart.png; path = images/btnStart.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +113,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01A3F1EA16DAB8C500BB10D0 /* ui */ = {
+		01A3F1EA16DAB8C500BB10D0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				01A3F1EC16DAB95F00BB10D0 /* uiSprite.cpp */,
@@ -119,7 +123,7 @@
 				01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */,
 				01A3F1F116DAB95F00BB10D0 /* uiSpriteRender.h */,
 			);
-			name = ui;
+			name = UI;
 			sourceTree = "<group>";
 		};
 		15450B7F16D61E1D00903302 /* iOS */ = {
@@ -139,6 +143,7 @@
 		1547CD3F16D79CED00B51B85 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15747B7A16DBC58A001EFA87 /* btnStart.png */,
 				1547CD8316D7B77C00B51B85 /* 1.png */,
 				1547CD4216D79D3500B51B85 /* test.jpg */,
 			);
@@ -183,7 +188,8 @@
 		154EA0F316CBF5D0006E7F9A /* CinderES2 */ = {
 			isa = PBXGroup;
 			children = (
-				01A3F1EA16DAB8C500BB10D0 /* ui */,
+				15747B7616DB91F4001EFA87 /* helpers */,
+				01A3F1EA16DAB8C500BB10D0 /* UI */,
 				1547CD3F16D79CED00B51B85 /* Resources */,
 				15450B7F16D61E1D00903302 /* iOS */,
 				154EA12316CE7B11006E7F9A /* GL2 */,
@@ -222,6 +228,15 @@
 				1547CD3D16D78E0000B51B85 /* textureRender.h */,
 			);
 			name = GL2;
+			sourceTree = "<group>";
+		};
+		15747B7616DB91F4001EFA87 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				15747B7816DB9317001EFA87 /* Delegate.h */,
+				15747B7916DB9317001EFA87 /* Signal.h */,
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +299,7 @@
 				154EA10E16CBF5D0006E7F9A /* ViewController.xib in Resources */,
 				1547CD4316D79D3500B51B85 /* test.jpg in Resources */,
 				1547CD8416D7B77C00B51B85 /* 1.png in Resources */,
+				15747B7B16DBC58A001EFA87 /* btnStart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

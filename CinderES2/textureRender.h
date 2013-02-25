@@ -22,6 +22,7 @@
 
 
 #include "constants.h"
+#include "uiSprite.h"
 
 class textureRender{
 	
@@ -40,6 +41,7 @@ public:
 	void drawMesh(const ci::TriMesh mesh);
 	void drawMesh(const ci::TriMesh mesh,GLint shape);
 	void drawTexture(const ci::gl::Texture& texture);
+	void drawSprite(uiSprite& texture);
 	
 	
 	void setCameraMatrix(ci::Matrix44f worldMatrix);

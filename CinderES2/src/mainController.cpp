@@ -10,8 +10,6 @@
 #include "cinder/app/AppBasic.h"
 #include  "QuartzCore/QuartzCore.h"
 #include "cinder/ImageIo.h"
-#include "cinder/app/AppBasic.h"
-
 
 using namespace ci;
 using namespace app;
@@ -51,14 +49,34 @@ void mainController::setup(){
     
     texture = ci::loadImage(ci::app::loadResource("1.png"));
 	std::cout << "texture loaded " << texture.getWidth() << std::endl;
-
+	
+	button.setupByResource("btnStart.png", 320/2, 568/2, ALIGN_CENTER);
+	button.onClicked.Connect(this,&mainController::clicked);
+	button.argument = "arg test";
+	button.setup();
+	
+	button.resetData();
+	button.update();
+	
+	
 
 }
 
+void mainController::clicked(uiSpriteButton* button){
+	std::cout << button->argument;
+	//"clicked";
+}
 
 void mainController::setSize(ci::Vec2f size){
-	camera.setOrtho(0, size.x, 0, size.y, -1, 1);
-	gl2::setCamera(camera.getProjectionMatrix());
+	camera.setOrtho(0, size.x, 0,size.y, -1, 1);
+	camera.setEyePoint(Vec3f(100,-122,1));
+	camera.setCenterOfInterestPoint( Vec3f( 100, 100, 0.0f ) );
+	Matrix44f matrix = camera.getProjectionMatrix();
+//	matrix  = matrix * Matrix44f::createTranslation(Vec3f(-200,0,0));
+	
+//	matrix = matrix ;
+	
+	gl2::setCamera(matrix);
 	
 	std::cout << "set size " << size <<  std::endl;
 }
@@ -79,7 +97,7 @@ void mainController::draw(){
     unbindTexture(texture);
     
     
-    drawTexture(texture);
+   // drawTexture(texture);
 	
 	setColor(ColorA(0,1,1,1));
 	
@@ -90,6 +108,12 @@ void mainController::draw(){
 			}
 		}
 	}
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+	textureRender::Instance()->drawSprite(button);
+	glDisable(GL_BLEND);
 
 
 	

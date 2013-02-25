@@ -19,6 +19,8 @@
 #include "cinder/gl/Texture.h"
 
 #include "gl2.h"
+#include "uiSpriteButton.h"
+
 
 //#include "colorRender.h"
 
@@ -43,6 +45,8 @@ private:
 	
 	std::vector<ci::Vec2f> activeTouches;
 
+	uiSpriteButton button;
+
 
 public:
 	
@@ -56,6 +60,7 @@ public:
 	void draw();
 
 
+	void clicked(uiSpriteButton* button);
 
 
 	
