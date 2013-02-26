@@ -6,32 +6,32 @@
 //  Copyright (c) 2013 Kris Meeusen. All rights reserved.
 //
 
-#include "textureRender.h"
+#include "TextureRender.h"
 #include "shaderLoader.h"
 #include "checkError.h"
 
 
 using namespace ci;
 
-textureRender* textureRender::instance;
+TextureRender* TextureRender::instance;
 
 
-textureRender* textureRender::Instance(){
+TextureRender* TextureRender::Instance(){
     if(instance == NULL)
 	{
-		instance = new textureRender();
+		instance = new TextureRender();
 		instance->setup();
 	}
     return instance;
 }
 
 
-textureRender::textureRender(){
+TextureRender::TextureRender(){
 	isSetup = false;
 }
 
 
-void textureRender::setup(){
+void TextureRender::setup(){
 	const char vShaderStr[] =
     "attribute vec4 position;   \n"
 	"attribute vec3 uv;			\n"
@@ -44,8 +44,8 @@ void textureRender::setup(){
     "{                           \n"
     "   gl_Position = modelViewProjectionMatrix * position; \n"
 	"	uvVarying.x = uv.x; \n"
-	"	uvVarying.y = 1.0 -uv.y; \n"
-//	"	uvVarying = uv;		\n"
+	"	uvVarying.y = 1.0-uv.y; \n"
+	"	uvVarying.z = uv.z; \n"
 
     "}                           \n";
     
@@ -127,20 +127,21 @@ void textureRender::setup(){
 
 
 
-void textureRender::setCameraMatrix(ci::Matrix44f worldMatrix){
+void TextureRender::setCameraMatrix(ci::Matrix44f worldMatrix){
 	glUseProgram(program);
 	glUniformMatrix4fv(uWorldMatrix, 1, 0,worldMatrix.m);
 	glUseProgram(0);
 	
 }
 
-void textureRender::bindTexture(const ci::gl::Texture &texture)
+
+void TextureRender::bindTexture(const ci::gl::Texture &texture)
 {
     texture.bind();
 	gl2::CheckForErrors();
 }
 
-void textureRender::unbindTexture(const ci::gl::Texture &texture)
+void TextureRender::unbindTexture(const ci::gl::Texture &texture)
 {
     texture.unbind();
 	gl2::CheckForErrors();
@@ -148,18 +149,18 @@ void textureRender::unbindTexture(const ci::gl::Texture &texture)
 
 
 
-void textureRender::setLineWidth(const float width){
+void TextureRender::setLineWidth(const float width){
 	glLineWidth(width);
 	
 }
 
 
-void textureRender::drawMesh(const ci::TriMesh mesh){
+void TextureRender::drawMesh(const ci::TriMesh mesh){
 	drawMesh(mesh,GL_TRIANGLES);
 }
 
 
-void textureRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
+void TextureRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 	glUseProgram(program);
 	
 	ci::TriMesh mesh;
@@ -171,7 +172,7 @@ void textureRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 	
 }
 
-void textureRender::drawTexture(const ci::gl::Texture& texture){
+void TextureRender::drawTexture(const ci::gl::Texture& texture){
 
 //    ci::TriMesh mesh;
 //
@@ -192,7 +193,7 @@ void textureRender::drawTexture(const ci::gl::Texture& texture){
 }
 
 
-void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
+void TextureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 
 
 	glUseProgram(program);
@@ -224,7 +225,7 @@ void textureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 }
 
 
-void textureRender::drawSprite(uiSprite& sprite){
+void TextureRender::drawSprite(uiSprite& sprite){
 	if(!sprite.isTextureLoaded) return;
 	glUseProgram(program);
 

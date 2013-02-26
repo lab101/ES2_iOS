@@ -9,10 +9,11 @@
 #include "uiSpriteButton.h"
 #include "cinder/app/AppBasic.h"
 #include "cinder/Timeline.h"
-
+#include "TouchDispatcher.h"
 
 
 using namespace ci;
+using namespace std;
 using namespace app;
 
 
@@ -22,8 +23,23 @@ using namespace app;
 void uiSpriteButton::setup(){
 	//AppBasic::get()->registerMouseDown(this,&uiSpriteButton::mouseDown);
 	
-//	uiSpriteButton test;
-	onClicked(this);
+    TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&uiSpriteButton::endTouches);
+
+}
+
+
+void uiSpriteButton::endTouches(std::vector<ci::Vec2f> touches){
+    
+    for(vector<Vec2f>::const_iterator it = touches.begin();it != touches.end();++it){
+        if(getBoundingBox().contains(*it)){
+            std::cout << "hit" << std::endl;
+            onClicked(this);
+        }
+//            else{
+//            std::cout << "ended " << *it << std::endl;
+//        }
+   
+    }
 }
 
 bool uiSpriteButton::mouseDown(ci::app::MouseEvent event){

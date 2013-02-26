@@ -12,25 +12,25 @@
 
 using namespace ci;
 
-colorRender* colorRender::instance;
+ColorRender* ColorRender::instance;
 
 
-colorRender* colorRender::Instance(){
+ColorRender* ColorRender::Instance(){
     if(instance == NULL)
 	{
-	     instance = new colorRender();
+	     instance = new ColorRender();
 		 instance->setup();
 	}
     return instance;
 }
 
 
-colorRender::colorRender(){
+ColorRender::ColorRender(){
 	isSetup = false;
 }
 
 
-void colorRender::setup(){
+void ColorRender::setup(){
 	const char vShaderStr[] =
     "attribute vec4 position;   \n"
 	"uniform mat4 modelViewProjectionMatrix; \n"
@@ -111,14 +111,14 @@ void colorRender::setup(){
 	
 }
 
-void colorRender::setCameraMatrix(ci::Matrix44f worldMatrix){
+void ColorRender::setCameraMatrix(ci::Matrix44f worldMatrix){
 	glUseProgram(program);
 	glUniformMatrix4fv(uWorldMatrix, 1, 0,worldMatrix.m);
 	glUseProgram(0);
 
 }
 
-void colorRender::setColor(const ci::ColorA color){
+void ColorRender::setColor(const ci::ColorA color){
 	glUseProgram(program);
 	glUniform4fv (uColor,1, color);
 	glUseProgram(0);
@@ -126,7 +126,7 @@ void colorRender::setColor(const ci::ColorA color){
 	gl2::CheckForErrors();
 }
 
-void colorRender::setLineWidth(const float width){
+void ColorRender::setLineWidth(const float width){
 	glUseProgram(program);
 	glLineWidth(width);
 	glUseProgram(0);
@@ -134,12 +134,12 @@ void colorRender::setLineWidth(const float width){
 }
 
 
-void colorRender::drawMesh(const ci::TriMesh mesh){
+void ColorRender::drawMesh(const ci::TriMesh mesh){
 	drawMesh(mesh,GL_TRIANGLES);
 }
 
 
-void colorRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
+void ColorRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 	glUseProgram(program);
 
 	ci::TriMesh mesh;
@@ -152,7 +152,7 @@ void colorRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 }
 
 
-void colorRender::drawMesh(const ci::TriMesh mesh,GLint shape){
+void ColorRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 	glUseProgram(program);
 
 	glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, &(mesh.getVertices()[0]));

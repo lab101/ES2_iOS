@@ -21,7 +21,7 @@
 
 #include "constants.h"
 
-class colorRender{
+class ColorRender{
 
 private:
 	GLuint program;
@@ -29,7 +29,7 @@ private:
 	GLint uColor;
 	
 	bool isSetup;
-	static colorRender* instance;
+	static ColorRender* instance;
 	
 public:
 	void drawLine(const ci::Vec3f &start, const ci::Vec3f &end );
@@ -43,9 +43,9 @@ public:
 	void setLineWidth(const float width);
 
 	
-	colorRender();
+	ColorRender();
 	
-	static colorRender* Instance();
+	static ColorRender* Instance();
 	
 	void setup();
 	

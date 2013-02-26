@@ -24,7 +24,8 @@
 #include "constants.h"
 #include "uiSprite.h"
 
-class textureRender{
+
+class TextureRender{
 	
 private:
 	GLuint program;
@@ -33,7 +34,7 @@ private:
 	GLuint interfaceTextureId;
 	
 	bool isSetup;
-	static textureRender* instance;
+	static TextureRender* instance;
 	
 	
 public:
@@ -45,15 +46,17 @@ public:
 	
 	
 	void setCameraMatrix(ci::Matrix44f worldMatrix);
+    
+    
 	void bindTexture(const ci::gl::Texture& texture);
 	void unbindTexture(const ci::gl::Texture& texture);
 
 	void setLineWidth(const float width);
 	
 	
-	textureRender();
+	TextureRender();
 	
-	static textureRender* Instance();
+	static TextureRender* Instance();
 	
 	void setup();
 	

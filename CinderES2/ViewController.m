@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import "mainController.h"
+#import "TouchDispatcher.h"
 
-#include <vector>
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -78,29 +78,35 @@
 }
 
 
+- (std::vector<ci::Vec2f>) NSSetToVector:(NSObject <NSFastEnumeration>*) set{
+    
+    std::vector<ci::Vec2f> touchVec;
+
+	for(UITouch* touch in set) {
+        CGPoint touchPoint = [touch locationInView:self.view];
+        touchVec.push_back(ci::Vec2f(touchPoint.x,screenSize.y - touchPoint.y));
+	}
+    
+    return touchVec;   
+}
+
+
+
+
 - (void) updateTouches{
 	
-	std::vector<ci::Vec2f> touchVec;
-	for (int i=0; i < [activeTouches count]; ++i) {
-			CGPoint touchPoint = [activeTouches[i] locationInView:self.view];
-			touchVec.push_back(ci::Vec2f(touchPoint.x,screenSize.y - touchPoint.y));
-	}
-
 	//std::cout << "touch points send " << touchVec.size() << std::endl;
-
-	main.setActiveTouches(touchVec);
+    TouchDispatcher::Instance()->setActiveTouches([self NSSetToVector:activeTouches]);
 }
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    //self.paused = !self.paused;
-	std::vector<ci::Vec2f> touchVec;
 
 	for(UITouch* touch in touches) {
-		[activeTouches addObject:touch];
-
+        [activeTouches addObject:touch];
 	}
-
+        
+    TouchDispatcher::Instance()->beginTouches([self NSSetToVector:touches]);
 	[self updateTouches];
 }
 
@@ -112,14 +118,18 @@
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
 
 	NSMutableArray *discardedItems = [NSMutableArray array];
+
 	for(UITouch* touch in touches) {
 		if ([activeTouches containsObject:touch]) {
 			[discardedItems addObject:touch];
 		}
-	}
+    }
+    
 	[activeTouches removeObjectsInArray:discardedItems];
 	[self updateTouches];
-
+    
+    
+    TouchDispatcher::Instance()->endTouches([self NSSetToVector:touches]);
 }
 
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{

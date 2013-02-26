@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+#include <vector>
+#include "cinder/Vector.h"
 
 @interface ViewController : GLKViewController
+
+//- (std::vector<ci::Vec2f>) NSSetToVector:(NSSet*) set;
+
 @end

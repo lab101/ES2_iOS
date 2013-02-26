@@ -8,49 +8,49 @@
 #pragma once
 
 #include <iostream>
-#include "colorRender.h"
-#include "textureRender.h"
+#include "ColorRender.h"
+#include "TextureRender.h"
 
 #include "cinder/TriMesh.h"
 
 namespace gl2 {
 
 	inline void drawLine(const ci::Vec3f &start, const ci::Vec3f &end ){
-		colorRender::Instance()->drawLine(start, end);
+		ColorRender::Instance()->drawLine(start, end);
 	}
 	
 	inline void setColor(const ci::ColorA color){
-		colorRender::Instance()->setColor(color);
+		ColorRender::Instance()->setColor(color);
 	}
 
 	inline void setLineWidth(const float lineWidth){
-		colorRender::Instance()->setLineWidth(lineWidth);
+		ColorRender::Instance()->setLineWidth(lineWidth);
 	}
 	
 	inline void drawMesh(const ci::TriMesh mesh){
 		if(mesh.hasTexCoords()){
-			textureRender::Instance()->drawMesh(mesh);
+			TextureRender::Instance()->drawMesh(mesh);
 		}else{
-			colorRender::Instance()->drawMesh(mesh);
+			ColorRender::Instance()->drawMesh(mesh);
 		}
 	}
 
 	inline void setCamera(const ci::Matrix44f worldMatrix){
-		colorRender::Instance()->setCameraMatrix(worldMatrix);
-		textureRender::Instance()->setCameraMatrix(worldMatrix);
+		ColorRender::Instance()->setCameraMatrix(worldMatrix);
+		TextureRender::Instance()->setCameraMatrix(worldMatrix);
 	}
 	
 
     inline void bindTexture(const ci::gl::Texture& texture){
-        textureRender::Instance()->bindTexture(texture);
+        TextureRender::Instance()->bindTexture(texture);
     }
 
     inline void unbindTexture(const ci::gl::Texture& texture){
-        textureRender::Instance()->unbindTexture(texture);
+        TextureRender::Instance()->unbindTexture(texture);
     }
     
     inline void drawTexture(const ci::gl::Texture &texture){
-        textureRender::Instance()->drawTexture(texture);
+        TextureRender::Instance()->drawTexture(texture);
     }
 
 }

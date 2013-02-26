@@ -44,6 +44,8 @@ class uiSprite{
     float mWidth;
     float mHeight;
     
+    // is used for retina like displays
+    float mTextureScale;
     
     ci::Vec4f leftBottom;
     ci::Vec4f rightBottom;
@@ -63,7 +65,7 @@ class uiSprite{
     int mCurrentAnimationframe;
     
 protected:
-	ci::Anim<float> mRotation;
+	ci::Anim<float> mRotationRadians;
     ci::Anim<float> mScale;
     ci::Anim<float> mAlpha;
 
@@ -93,7 +95,8 @@ public:
 	void fadeTo(float newAlpha,float durationSec,float delay = 0);
 	void scaleTo(float newScale,float durationSec,float delay = 0);
 
-
+    void setTexureScale(float textureScale);
+    
     float * data;
     
     ci::Vec2f getCenterPosition();
@@ -118,6 +121,8 @@ public:
 	void setCenterPosition(ci::Vec2f newPosition);
 	void setAlpha(float alpha);
 	void setRotation(float rotation);
+    
+    float getRotation() const;
 
 };
 

@@ -18,9 +18,10 @@ uiSprite::uiSprite(){
     mWidth = 0;
     mHeight = 0;
 
-    mRotation = 0;
+    mRotationRadians = 0;
     mScale = 1;
     mAlpha = 1;
+    mTextureScale = 1;
 	
 	mParent = 0;
 
@@ -34,7 +35,12 @@ uiSprite::uiSprite(){
 
 }
 
-void uiSprite:: setupByTexture(ci::gl::Texture texture,float x,float y,int align){
+void uiSprite::setTexureScale(float textureScale){
+    mTextureScale = textureScale;
+}
+
+
+void uiSprite::setupByTexture(ci::gl::Texture texture,float x,float y,int align){
 //    if(isTextureLoaded)
 //		mTexture.reset()
 		
@@ -42,8 +48,8 @@ void uiSprite:: setupByTexture(ci::gl::Texture texture,float x,float y,int align
 	
 	isTextureLoaded = true;
     
-    mWidth =  mTexture.getWidth() / mTotalAnimationframes;
-    mHeight = mTexture.getHeight();
+    mWidth =  mTexture.getWidth()  / mTextureScale / mTotalAnimationframes;
+    mHeight = mTexture.getHeight() / mTextureScale;
     
 	mOriginalPoint.set(x,y);
     mAlligment = align;
@@ -173,9 +179,14 @@ void uiSprite::setCenterPosition(Vec2f newPosition){
 }
 
 void uiSprite::setRotation(float rotation){
-	mRotation = rotation *  M_PI / 180.0;
+	mRotationRadians = rotation *  M_PI / 180.0;
 	isDirty = true;
 }
+
+float uiSprite::getRotation() const{
+    return mRotationRadians / (M_PI/180.0);
+}
+
 
 
 void uiSprite::update(){
@@ -226,7 +237,7 @@ void uiSprite::resetData(){
     mModelMatrix.setToIdentity();
 	mModelMatrix.setTranslate(Vec4f(mCenterPointAnimated().x,mCenterPointAnimated().y,0,1));
 
-    mModelMatrix.rotate(Vec3f(0,0,1), mRotation);
+    mModelMatrix.rotate(Vec3f(0,0,1), mRotationRadians);
 	mModelMatrix.scale(Vec3f(mScale,mScale,1));
 
 	if(mParent != 0){

@@ -20,7 +20,7 @@
 
 #include "gl2.h"
 #include "uiSpriteButton.h"
-
+#include "uiSprite.h"
 
 //#include "colorRender.h"
 
@@ -43,10 +43,11 @@ private:
     
 	//colorRender mColorRender;
 	
-	std::vector<ci::Vec2f> activeTouches;
 
 	uiSpriteButton button;
-
+    uiSprite star;
+    
+    bool isRotating;
 
 public:
 	
@@ -64,7 +65,6 @@ public:
 
 
 	
-	void setActiveTouches(std::vector<ci::Vec2f> touches);
 	void touchesBegan(std::vector<ci::Vec2f> touches);
 	void touchesMoved(std::vector<ci::Vec2f> touches);
 

@@ -37,6 +37,9 @@ public:
 	
 private:
 	bool mouseDown(ci::app::MouseEvent event);
+    
+    void endTouches(std::vector<ci::Vec2f> touches);
+
 	
 };
 
