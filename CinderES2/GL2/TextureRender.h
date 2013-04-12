@@ -21,7 +21,7 @@
 #include "cinder/gl/Texture.h"
 
 
-#include "constants.h"
+#include "GLConstants.h"
 #include "uiSprite.h"
 
 
@@ -52,7 +52,8 @@ public:
 	void unbindTexture(const ci::gl::Texture& texture);
 
 	void setLineWidth(const float width);
-	
+	//void ::drawArray(GLfloat* dataPointer){
+
 	
 	TextureRender();
 	

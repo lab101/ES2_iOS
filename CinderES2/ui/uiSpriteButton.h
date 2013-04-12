@@ -25,7 +25,9 @@ class uiSpriteButton : public uiSprite{
 	
 public:
 	//uiSpriteButton();
-	void setup();
+	void enable();
+    void disable();
+    
 	Signal1< uiSpriteButton* > onClicked;
 
 	//boost::signals2::signal<void(uiSpriteButton* button)> onClicked;

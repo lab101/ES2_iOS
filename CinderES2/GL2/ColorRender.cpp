@@ -42,8 +42,10 @@ void ColorRender::setup(){
     "}                           \n";
     
     const char fShaderStr[] =
-    "precision mediump float;                   \n"
-	"uniform vec4 vColor;						\n"
+	"#ifdef GL_ES \n"
+	" precision mediump float;\n"
+	"#endif	\n"
+	"uniform  vec4 vColor;						\n"
     "void main()                                \n"
     "{                                          \n"
     "  gl_FragColor = vColor;					\n"
@@ -71,6 +73,8 @@ void ColorRender::setup(){
         return;
 	
     glAttachShader(program, vertexShader);
+	gl2::CheckForErrors();
+
     glAttachShader(program, fragmentShader);
     
     gl2::CheckForErrors();
@@ -90,7 +94,6 @@ void ColorRender::setup(){
         {
             char* infoLog = (GLchar *) malloc(sizeof(char) * infoLen);
             glGetProgramInfoLog(program, infoLen, NULL, infoLog);
-			// esLogMessage("Error linking program:\n%s\n", infoLog);
             
             gl2::CheckForErrors();
 			
@@ -163,4 +166,37 @@ void ColorRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 	glDisableVertexAttribArray(ATTRIB_VERTEX);
 	glUseProgram(0);
 }
+
+void ColorRender::drawMesh(VboMesh mesh){
+	// 1rst attribute buffer : vertices
+	glUseProgram(program);
+	gl2::CheckForErrors();
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexbuffer);
+	gl2::CheckForErrors();
+
+	glVertexAttribPointer(
+						  0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+						  3,                  // size
+						  GL_FLOAT,           // type
+						  GL_FALSE,           // normalized?
+						  0,                  // stride
+						  (void*)0            // array buffer offset
+						  );
+	
+	// Draw the triangle !
+	glEnableVertexAttribArray(0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	gl2::CheckForErrors();
+
+	glDisableVertexAttribArray(0);
+	glUseProgram(0);
+	
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindVertexArrayOES(0); 
+
+
+}
+
 

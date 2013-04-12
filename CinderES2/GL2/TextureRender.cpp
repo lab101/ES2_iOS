@@ -44,15 +44,22 @@ void TextureRender::setup(){
     "{                           \n"
     "   gl_Position = modelViewProjectionMatrix * position; \n"
 	"	uvVarying.x = uv.x; \n"
+	"#ifdef GL_ES \n"
 	"	uvVarying.y = 1.0-uv.y; \n"
+	"#else	\n"
+	"	uvVarying.y = uv.y; \n"
+	"#endif"
+	"	uvVarying.y = uv.y; \n"
 	"	uvVarying.z = uv.z; \n"
 
     "}                           \n";
     
     const char fShaderStr[] =
-    "precision mediump float;						\n"
+	"#ifdef GL_ES \n"
+	" precision mediump float;\n"
+	"#endif	\n"
 	"uniform sampler2D texture;						\n"
-	"varying vec3 uvVarying;						\n"
+	"varying  vec3 uvVarying;						\n"
 	
     "void main()									\n"
     "{												\n"
@@ -174,12 +181,12 @@ void TextureRender::drawLine(const ci::Vec3f &start,const ci::Vec3f &end){
 
 void TextureRender::drawTexture(const ci::gl::Texture& texture){
 
-//    ci::TriMesh mesh;
+   ci::TriMesh mesh;
 //
-//    mesh.appendVertex(Vec3f(100,500,-0.1));
-//    mesh.appendVertex(Vec3f(10,0,-0.1));
-//    mesh.appendVertex(Vec3f(310,0,-0.1));
-//    
+ //   mesh.appendVertex(Vec3f(100,500,-0.1));
+  //  mesh.appendVertex(Vec3f(10,0,-0.1));
+  //  mesh.appendVertex(Vec3f(310,0,-0.1));
+//
 //	// not implemented
 //    //    mesh.appendColorRGB(Color(1,1,0));
 //    //    mesh.appendColorRGB(Color(1,0,1));
@@ -226,16 +233,11 @@ void TextureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 
 
 void TextureRender::drawSprite(uiSprite& sprite){
-	if(!sprite.isTextureLoaded) return;
+	if(!sprite.isTextureLoaded || sprite.getAlpha()==1) return;
 	glUseProgram(program);
 
-	
+    	
 	bindTexture(sprite.getTexture());
-	//sprite.getTexture().bind();
-	//  std::cout << "id from sprite obj " << sprite.getTexture().getId() << "\n-----\n"  << std::endl;
-	
-    
-    //std::cout << sprite.getTexture().getId();
 	GLfloat *pointer = sprite.data;
     glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 6 * sizeof(GLfloat), pointer);
 	glEnableVertexAttribArray(ATTRIB_VERTEX);
@@ -246,7 +248,6 @@ void TextureRender::drawSprite(uiSprite& sprite){
 
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
-	sprite.getTexture().unbind();
 	
 	glDisableVertexAttribArray(ATTRIB_VERTEX);
 	glDisableVertexAttribArray(ATTRIB_UV);
@@ -254,10 +255,11 @@ void TextureRender::drawSprite(uiSprite& sprite){
 	glUseProgram(0);
 	//glDisable  (GL_BLEND);
 	
-	
+	sprite.getTexture().unbind();
 	gl2::CheckForErrors();
 
-
 }
+
+
 
 

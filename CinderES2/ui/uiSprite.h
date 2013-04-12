@@ -35,9 +35,7 @@
 class uiSprite{
    
     ci::Vec2f mCenterPoint;
-    ci::Vec2f mOriginalPoint;
 	ci::Anim<ci::Vec2f> mCenterPointAnimated;
-	int mAlligment;
 	
     ci::gl::Texture mTexture;
 
@@ -69,6 +67,9 @@ protected:
     ci::Anim<float> mScale;
     ci::Anim<float> mAlpha;
 
+    ci::Vec2f mOriginalPoint;
+	int mAlligment;
+
 	
 public:
     uiSprite();
@@ -82,6 +83,7 @@ public:
 
     
     void setupByTexture(ci::gl::Texture texture,float x,float y,int align);
+    void setupByTexture(ci::gl::Texture texture,ci::Vec2f position,int align);
 	void changeImage(std::string fileName);
 
     
@@ -123,6 +125,7 @@ public:
 	void setRotation(float rotation);
     
     float getRotation() const;
+    float getAlpha() const;
 
 };
 

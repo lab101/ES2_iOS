@@ -7,6 +7,10 @@
 //
 
 
+// Based on
+// http://www.lastrayofhope.com/2011/02/02/checking-for-errors/
+
+
 #pragma once
 
 #ifdef DEBUG

@@ -20,11 +20,16 @@ using namespace app;
 // uiSpriteButton::uiSpriteButton(){
 // }
 
-void uiSpriteButton::setup(){
+void uiSpriteButton::enable(){
 	//AppBasic::get()->registerMouseDown(this,&uiSpriteButton::mouseDown);
 	
     TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&uiSpriteButton::endTouches);
+}
 
+void uiSpriteButton::disable(){
+	//AppBasic::get()->registerMouseDown(this,&uiSpriteButton::mouseDown);
+	
+    TouchDispatcher::Instance()->onTouchesEnded.Disconnect(this,&uiSpriteButton::endTouches);
 }
 
 
@@ -32,7 +37,7 @@ void uiSpriteButton::endTouches(std::vector<ci::Vec2f> touches){
     
     for(vector<Vec2f>::const_iterator it = touches.begin();it != touches.end();++it){
         if(getBoundingBox().contains(*it)){
-            std::cout << "hit" << std::endl;
+          //  std::cout << "hit" << std::endl;
             onClicked(this);
         }
 //            else{

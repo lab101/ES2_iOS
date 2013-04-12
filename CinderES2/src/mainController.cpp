@@ -11,6 +11,7 @@
 #include "QuartzCore/QuartzCore.h"
 #include "cinder/ImageIo.h"
 #include "TouchDispatcher.h"
+#include "checkError.h"
 
 
 using namespace ci;
@@ -29,6 +30,8 @@ void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
 
 void mainController::setup(){
 	
+	
+	
     mesh.appendVertex(Vec3f(10,300,-0.1));
     mesh.appendVertex(Vec3f(10,10,-0.1));
     mesh.appendVertex(Vec3f(300,10,-0.1));
@@ -42,6 +45,14 @@ void mainController::setup(){
 	mesh.appendTexCoord(Vec2f(0,0));
 	mesh.appendTexCoord(Vec2f(1,0));
 
+//	glUseProgram(ColorRender::Instance()->program);
+	int test = (ColorRender::Instance()->program);
+	vboMesh = new VboMesh(mesh);
+	gl2::CheckForErrors();
+
+//	glUseProgram(0);
+	
+
 	setLineWidth(8);
     
     
@@ -53,15 +64,13 @@ void mainController::setup(){
 	button.setupByResource("btnStart.png", 320/2, 568/2, ALIGN_CENTER);
 	button.onClicked.Connect(this,&mainController::clicked);
 	button.argument = "arg test";
-	button.setup();
-	
+	button.enable();
 	button.resetData();
 	button.update();
     
     star.setTexureScale(2);
     star.setupByResource("star.png", 120, 60, ALIGN_CENTER);
     
-    //    glEnable(GL_DEPTH_TEST);
     glDisable(GL_DEPTH_TEST);
     
     
@@ -71,7 +80,7 @@ void mainController::setup(){
 
 void mainController::clicked(uiSpriteButton* button){
 	std::cout << button->argument;
-    button->setAlpha(0);
+    button->setAlpha(1);
     button->setCenterPosition(Vec2f(-button->getBoundingBox().getWidth(),button->getCenterPosition().y));
 	//"clicked";
 }
@@ -94,19 +103,25 @@ void mainController::update(){
 
 
 void mainController::draw(){
-    glEnable(GL_BLEND);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.7f, 0.7, 0.75f, 1.0f);
 	
-    bindTexture(texture);
+	setColor(ColorA(1,1,0,1));
+
+	
+	
+	ColorRender::Instance()->drawMesh(*vboMesh);
+    
+	
+	bindTexture(texture);
 	drawMesh(mesh);
     unbindTexture(texture);
-    
-    
+
+//	return;
+	
    // drawTexture(texture);
 	
-	setColor(ColorA(0,1,1,1));
 	
     int nrOfTouches = TouchDispatcher::Instance()->getActiveTouches().size();
 	if(nrOfTouches > 1){
@@ -117,6 +132,7 @@ void mainController::draw(){
 		}
 	}
 	
+	glEnable(GL_BLEND);
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
 	TextureRender::Instance()->drawSprite(star);

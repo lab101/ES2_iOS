@@ -19,12 +19,12 @@
 #include "cinder/Camera.h"
 #include "cinder/TriMesh.h"
 
-#include "constants.h"
+#include "VboMesh.h"
+#include "GLConstants.h"
 
 class ColorRender{
 
 private:
-	GLuint program;
 	GLint uWorldMatrix;
 	GLint uColor;
 	
@@ -32,10 +32,13 @@ private:
 	static ColorRender* instance;
 	
 public:
+	GLuint program;
+
 	void drawLine(const ci::Vec3f &start, const ci::Vec3f &end );
 	void drawMesh(const ci::TriMesh mesh);
 	void drawMesh(const ci::TriMesh mesh,GLint shape);
-	
+	void drawMesh(VboMesh mesh);
+
 	
 
 	void setCameraMatrix(ci::Matrix44f worldMatrix);

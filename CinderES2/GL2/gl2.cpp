@@ -6,6 +6,6 @@
 //  Copyright (c) 2013 Kris Meeusen. All rights reserved.
 //
 
-#include "gl2.h"
+#include "GL2.h"
 
 

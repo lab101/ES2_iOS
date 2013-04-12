@@ -20,7 +20,7 @@ uiSprite::uiSprite(){
 
     mRotationRadians = 0;
     mScale = 1;
-    mAlpha = 1;
+    mAlpha = 0;
     mTextureScale = 1;
 	
 	mParent = 0;
@@ -32,6 +32,13 @@ uiSprite::uiSprite(){
 	mCurrentAnimationframe = 0;
 	
 	data = new float [36];
+	
+	// This will identify our vertex buffer
+	GLuint vertexbuffer;
+		// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glGenBuffers(1, &vertexbuffer);
+		// The following commands will talk about our 'vertexbuffer' buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 
 }
 
@@ -39,8 +46,11 @@ void uiSprite::setTexureScale(float textureScale){
     mTextureScale = textureScale;
 }
 
-
 void uiSprite::setupByTexture(ci::gl::Texture texture,float x,float y,int align){
+    setupByTexture(texture, Vec2f(x,y),align);
+}
+
+void uiSprite::setupByTexture(ci::gl::Texture texture,Vec2f position,int align){
 //    if(isTextureLoaded)
 //		mTexture.reset()
 		
@@ -51,51 +61,51 @@ void uiSprite::setupByTexture(ci::gl::Texture texture,float x,float y,int align)
     mWidth =  mTexture.getWidth()  / mTextureScale / mTotalAnimationframes;
     mHeight = mTexture.getHeight() / mTextureScale;
     
-	mOriginalPoint.set(x,y);
+	mOriginalPoint = position;
     mAlligment = align;
 	
     switch (align) {
         case ALIGN_TOPLEFT:
-            mCenterPointAnimated().x = x + (mWidth / 2.0);
-            mCenterPointAnimated().y = y + (mHeight / 2.0);
+            mCenterPointAnimated().x = position.x + (mWidth / 2.0);
+            mCenterPointAnimated().y = position.y + (mHeight / 2.0);
             break;
             
         case ALIGN_TOPRIGHT:
-            mCenterPointAnimated().x = x - mWidth / 2.0;
-            mCenterPointAnimated().y = y + mHeight / 2.0;
+            mCenterPointAnimated().x = position.x - mWidth / 2.0;
+            mCenterPointAnimated().y = position.y + mHeight / 2.0;
             break;
 			
         case ALIGN_TOPCENTER:
-            mCenterPointAnimated().x = x;
-            mCenterPointAnimated().y = y + (mHeight / 2.0);
+            mCenterPointAnimated().x = position.x;
+            mCenterPointAnimated().y = position.y + (mHeight / 2.0);
             break;
             
         case ALIGN_BOTTOMRIGHT:
-            mCenterPointAnimated().x = x - mWidth / 2.0;
-            mCenterPointAnimated().y = y - mHeight / 2.0;
+            mCenterPointAnimated().x = position.x - mWidth / 2.0;
+            mCenterPointAnimated().y = position.y - mHeight / 2.0;
             break;
             
         case ALIGN_BOTTOMLEFT:
-            mCenterPointAnimated().x = x + mWidth / 2.0;
-            mCenterPointAnimated().y = y - mHeight / 2.0;
+            mCenterPointAnimated().x = position.x + mWidth / 2.0;
+            mCenterPointAnimated().y = position.y - mHeight / 2.0;
             break;
 
         case ALIGN_CENTERLEFT:
-            mCenterPointAnimated().x = x + mWidth / 2.0;
-            mCenterPointAnimated().y = y;
+            mCenterPointAnimated().x = position.x + mWidth / 2.0;
+            mCenterPointAnimated().y = position.y;
             break;
             
         case ALIGN_CENTERRIGHT:
-            mCenterPointAnimated().x = x - mWidth / 2.0;
-            mCenterPointAnimated().y = y;
+            mCenterPointAnimated().x = position.x - mWidth / 2.0;
+            mCenterPointAnimated().y = position.y;
             break;
                   
 			
 			
         case ALIGN_CENTER:
         default:
-            mCenterPointAnimated().x = x;
-            mCenterPointAnimated().y = y;
+            mCenterPointAnimated().x = position.x;
+            mCenterPointAnimated().y = position.y;
             break;
             
             
@@ -185,6 +195,10 @@ void uiSprite::setRotation(float rotation){
 
 float uiSprite::getRotation() const{
     return mRotationRadians / (M_PI/180.0);
+}
+
+float uiSprite::getAlpha() const{
+    return mAlpha;
 }
 
 

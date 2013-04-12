@@ -16,11 +16,13 @@
 
 #include "cinder/Camera.h"
 #include "cinder/TriMesh.h"
+
 #include "cinder/gl/Texture.h"
 
 #include "gl2.h"
 #include "uiSpriteButton.h"
 #include "uiSprite.h"
+#include "VboMesh.h"
 
 //#include "colorRender.h"
 
@@ -38,7 +40,9 @@ private:
     GLuint program;
     GLint uWorldMatrix;
     
+	// classic mesh
     ci::TriMesh mesh;
+	VboMesh* vboMesh;
 	ci::CameraOrtho camera;
     
 	//colorRender mColorRender;
