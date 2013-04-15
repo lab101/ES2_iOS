@@ -42,6 +42,8 @@ public:
 	
 
 	void setCameraMatrix(ci::Matrix44f worldMatrix);
+	void setCamera(ci::Camera camera);
+    
 	void setColor(const ci::ColorA color);
 	void setLineWidth(const float width);
 

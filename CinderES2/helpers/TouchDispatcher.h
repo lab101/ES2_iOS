@@ -29,12 +29,16 @@ public:
     
     std::vector<ci::Vec2f> getActiveTouches();
 	void setActiveTouches(std::vector<ci::Vec2f> touches);
-	void beginTouches(std::vector<ci::Vec2f> touches);
-	void endTouches(std::vector<ci::Vec2f> touches);
+	
+    void touchesBegan(std::vector<ci::Vec2f> touches);
+	void touchesEnded(std::vector<ci::Vec2f> touches);
+	void touchesMoved(std::vector<ci::Vec2f> touches);
     
     TouchDispatcher();
     
     Gallant::Signal1< std::vector<ci::Vec2f> > onTouchesEnded;
+    Gallant::Signal1< std::vector<ci::Vec2f> > onTouchesBegan;
+    Gallant::Signal1< std::vector<ci::Vec2f> > onTouchesMoved;
 
     
 

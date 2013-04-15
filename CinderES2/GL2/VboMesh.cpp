@@ -24,25 +24,17 @@ VboMesh::VboMesh(ci::TriMesh mesh){
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	
 	
-	// An array of 3 vectors which represents 3 vertices
-//	g_vertex_buffer_data = new GLfloat[9];
-//	
-//	g_vertex_buffer_data[0]= -100.0f;
-//	g_vertex_buffer_data[1]= -100.0f;
-//	g_vertex_buffer_data[2]= 0;
-//	g_vertex_buffer_data[3]= 100.0f;
-//	g_vertex_buffer_data[4]= -100.0;
-//	g_vertex_buffer_data[5]= 0;
-//	g_vertex_buffer_data[6]= 0;
-//	g_vertex_buffer_data[7]= 100.0f;
-//	g_vertex_buffer_data[8]= 0;
 	
-	
-	GLfloat g_vertex_buffer_data[] = {
-		0.0f, -0.0f, 0.0f,
-		200.0f, -0.0f, 0.0f,
-		0.0f,  200.0f, 0.0f,
-	};
+	GLfloat g_vertex_buffer_data[mesh.getNumVertices()*3];//
+    
+    int i = 0;
+    for (std::vector<Vec3f>::const_iterator it = mesh.getVertices().begin(); it != mesh.getVertices().end(); ++it) {
+        g_vertex_buffer_data[i] = it->x;
+        g_vertex_buffer_data[i +1] = it->y;
+        g_vertex_buffer_data[i +2] = it->z;
+        i+=3;
+    }
+    
 //	{
 //		-1.0f, -1.0f, 0.0f,
 //		1.0f, -1.0f, 0.0f,

@@ -31,7 +31,6 @@ class mainController{
 private:
 	
     ci::gl::Texture texture;
-    ci::CameraPersp cameraPersp;
     
     GLuint _vertexArray;
     GLuint _vertexBuffer;
@@ -43,11 +42,14 @@ private:
 	// classic mesh
     ci::TriMesh mesh;
 	VboMesh* vboMesh;
-	ci::CameraOrtho camera;
-    
-	//colorRender mColorRender;
+	ci::CameraOrtho orthoCamera;
+    ci::CameraPersp perspectiveCamera;
+
+	ColorRender perspectiveRender;
 	
 
+    
+    
 	uiSpriteButton button;
     uiSprite star;
     
@@ -59,6 +61,7 @@ public:
 	void update();
 	void setup();
 	void setSize(ci::Vec2f size);
+
 	
     GLuint LoadShader(const char *shaderSrc, GLenum type);
 
@@ -70,7 +73,9 @@ public:
 
 	
 	void touchesBegan(std::vector<ci::Vec2f> touches);
-	void touchesMoved(std::vector<ci::Vec2f> touches);
+    void touchesMoved(std::vector<ci::Vec2f> touches);
+
+//	void touchesMoved(std::vector<ci::Vec2f> touches);
 
 
 

@@ -12,7 +12,7 @@
 #include "cinder/ImageIo.h"
 #include "TouchDispatcher.h"
 #include "checkError.h"
-
+#include "TouchDispatcher.h"
 
 using namespace ci;
 using namespace app;
@@ -20,22 +20,14 @@ using namespace gl2;
 
 
 
-
-void mainController::touchesBegan(std::vector<ci::Vec2f> touches){
-}
-
-void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
-
-}
-
 void mainController::setup(){
 	
 	
 	
-    mesh.appendVertex(Vec3f(10,300,-0.1));
-    mesh.appendVertex(Vec3f(10,10,-0.1));
-    mesh.appendVertex(Vec3f(300,10,-0.1));
-    
+    mesh.appendVertex(Vec3f(10,300,0));
+    mesh.appendVertex(Vec3f(10,10,0));
+    mesh.appendVertex(Vec3f(300,10,0));
+
 	// not implemented
 //    mesh.appendColorRGB(Color(1,1,0));
 //    mesh.appendColorRGB(Color(1,0,1));
@@ -45,12 +37,11 @@ void mainController::setup(){
 	mesh.appendTexCoord(Vec2f(0,0));
 	mesh.appendTexCoord(Vec2f(1,0));
 
-//	glUseProgram(ColorRender::Instance()->program);
-	int test = (ColorRender::Instance()->program);
+	glUseProgram(ColorRender::Instance()->program);
 	vboMesh = new VboMesh(mesh);
 	gl2::CheckForErrors();
 
-//	glUseProgram(0);
+	glUseProgram(0);
 	
 
 	setLineWidth(8);
@@ -71,12 +62,26 @@ void mainController::setup(){
     star.setTexureScale(2);
     star.setupByResource("star.png", 120, 60, ALIGN_CENTER);
     
-    glDisable(GL_DEPTH_TEST);
+    //glDisable(GL_DEPTH_TEST);
     
     
     isRotating = false;
+    
+    perspectiveRender.setup();
+    perspectiveRender.setColor(ColorA(1.0,0.0,1.0,1.0));
+    
+    TouchDispatcher::Instance()->onTouchesMoved.Connect(this,&mainController::touchesMoved);
+}
+
+
+
+void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
+    perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(touches[0].x /100 ,touches[0].y/100 ,-1),mesh.getVertices()[2], Vec3f::yAxis() );
+
+    perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix());
 
 }
+
 
 void mainController::clicked(uiSpriteButton* button){
 	std::cout << button->argument;
@@ -87,15 +92,29 @@ void mainController::clicked(uiSpriteButton* button){
 
 void mainController::setSize(ci::Vec2f size){
     
-    camera.setOrtho(0, size.x, 0,size.y, -1, 1);
-	gl2::setCamera(camera.getProjectionMatrix());
-	
+    
+    // Set default renders to orthocamera
+    orthoCamera.setOrtho(0, size.x, 0,size.y, -1, 1);
+	gl2::setCamera(orthoCamera.getProjectionMatrix());
+
+    
+    
+    // Create perspective camera for perspective render
+    perspectiveCamera.setPerspective( 60.0f, 1.5f, 1.0f, 1000.0f );
+    perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(1,1,-1),mesh.getVertices()[2], Vec3f::yAxis() );
+
+    
+    perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix());
+
+    
+    
 	std::cout << "set size " << size <<  std::endl;
 }
 
 
 void mainController::update(){
     star.setRotation(star.getRotation() + 1.0);
+    
 	button.update();
     star.update();
 }
@@ -107,20 +126,18 @@ void mainController::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.7f, 0.7, 0.75f, 1.0f);
 	
-	setColor(ColorA(1,1,0,1));
+	setColor(ColorA(1,0.4,0,1));
 
 	
-	
-	ColorRender::Instance()->drawMesh(*vboMesh);
+   // ColorRender::Instance()->drawMesh(mesh);
+    perspectiveRender.drawMesh(*vboMesh);
+  //  return;
     
 	
 	bindTexture(texture);
 	drawMesh(mesh);
     unbindTexture(texture);
 
-//	return;
-	
-   // drawTexture(texture);
 	
 	
     int nrOfTouches = TouchDispatcher::Instance()->getActiveTouches().size();
@@ -137,6 +154,7 @@ void mainController::draw(){
 
 	TextureRender::Instance()->drawSprite(star);
     TextureRender::Instance()->drawSprite(button);
+
 
 	glDisable(GL_BLEND);
 

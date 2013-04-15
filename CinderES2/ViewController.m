@@ -106,12 +106,13 @@
         [activeTouches addObject:touch];
 	}
         
-    TouchDispatcher::Instance()->beginTouches([self NSSetToVector:touches]);
+    TouchDispatcher::Instance()->touchesBegan([self NSSetToVector:touches]);
 	[self updateTouches];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 
+    TouchDispatcher::Instance()->touchesMoved([self NSSetToVector:touches]);
 	[self updateTouches];
 }
 
@@ -129,7 +130,7 @@
 	[self updateTouches];
     
     
-    TouchDispatcher::Instance()->endTouches([self NSSetToVector:touches]);
+    TouchDispatcher::Instance()->touchesEnded([self NSSetToVector:touches]);
 }
 
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{

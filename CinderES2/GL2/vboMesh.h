@@ -17,7 +17,7 @@ class VboMesh{
 
 public:
 	VboMesh(ci::TriMesh mesh);
-	GLfloat* g_vertex_buffer_data;
+	//GLfloat* g_vertex_buffer_data;
 	GLuint vertexbuffer;
 
 private:

@@ -114,6 +114,15 @@ void ColorRender::setup(){
 	
 }
 
+void ColorRender::setCamera(ci::Camera camera){
+ 	glUseProgram(program);
+//	glUniformMatrix4fv(uModelViewMatrix, 1, 0,camera.getModelViewMatrix().m);
+//	glUniformMatrix4fv(uProjectionMatrix, 1, 0,camera.getProjectionMatrix().m);
+	glUseProgram(0);
+   
+}
+
+
 void ColorRender::setCameraMatrix(ci::Matrix44f worldMatrix){
 	glUseProgram(program);
 	glUniformMatrix4fv(uWorldMatrix, 1, 0,worldMatrix.m);
