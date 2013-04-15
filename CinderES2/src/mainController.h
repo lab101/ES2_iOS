@@ -54,6 +54,10 @@ private:
     uiSprite star;
     
     bool isRotating;
+	int countScreenshot;
+	
+	//test
+	GLuint _storeFramebuffer,_storeRenderbuffer;
 
 public:
 	

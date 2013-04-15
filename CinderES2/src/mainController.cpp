@@ -14,6 +14,11 @@
 #include "checkError.h"
 #include "TouchDispatcher.h"
 
+
+#include <CoreVideo/CoreVideo.h>
+#include <CoreVideo/CVPixelBuffer.h>
+#include <QuartzCore/QuartzCore.h>
+
 using namespace ci;
 using namespace app;
 using namespace gl2;
@@ -71,6 +76,16 @@ void mainController::setup(){
     perspectiveRender.setColor(ColorA(1.0,0.0,1.0,1.0));
     
     TouchDispatcher::Instance()->onTouchesMoved.Connect(this,&mainController::touchesMoved);
+	
+	// test buffer
+	glGenFramebuffersOES(1, &_storeFramebuffer);
+	glGenRenderbuffersOES(1, &_storeRenderbuffer);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _storeFramebuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _storeRenderbuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES,   GL_RENDERBUFFER_OES, _storeRenderbuffer);
+	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA8_OES, 320, 568);
+	
+	countScreenshot = 0;
 }
 
 
@@ -79,7 +94,15 @@ void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
     perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(touches[0].x /100 ,touches[0].y/100 ,-1),mesh.getVertices()[2], Vec3f::yAxis() );
 
     perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix());
+	if(++countScreenshot > 100){
+		countScreenshot = 0;
+		
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, _storeFramebuffer);
+		glBindRenderbufferOES(GL_RENDERBUFFER_OES, _storeRenderbuffer);
+		GLuint* buffer = (GLuint*) malloc(320*568 * 4);
 
+		glReadPixels(0, 0, 320, 568, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+	}
 }
 
 
