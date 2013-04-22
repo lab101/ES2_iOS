@@ -32,42 +32,7 @@ TextureRender::TextureRender(){
 
 
 void TextureRender::setup(){
-	const char vShaderStr[] =
-    "attribute vec4 position;   \n"
-	"attribute vec3 uv;			\n"
-
-	"uniform mat4 modelViewProjectionMatrix;"
-	"uniform mat3 normalMatrix;"
-	"varying vec3 uvVarying;			\n"
-
-    "void main()                 \n"
-    "{                           \n"
-    "   gl_Position = modelViewProjectionMatrix * position; \n"
-	"	uvVarying.x = uv.x; \n"
-	"#ifdef GL_ES \n"
-	"	uvVarying.y = 1.0-uv.y; \n"
-	"#else	\n"
-	"	uvVarying.y = uv.y; \n"
-	"#endif"
-	"	uvVarying.y = uv.y; \n"
-	"	uvVarying.z = uv.z; \n"
-
-    "}                           \n";
-    
-    const char fShaderStr[] =
-	"#ifdef GL_ES \n"
-	" precision mediump float;\n"
-	"#endif	\n"
-	"uniform sampler2D texture;						\n"
-	"varying  vec3 uvVarying;						\n"
-	
-    "void main()									\n"
-    "{												\n"
-    "  gl_FragColor = texture2D(texture, uvVarying.xy);		\n"
-    " // gl_FragColor.a   *= uvVarying.z;						\n"
-    "  gl_FragColor.xyz /= gl_FragColor.a;					\n"
-    "}														\n";
-	
+		
 	
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -229,6 +194,49 @@ void TextureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 	
 	gl2::CheckForErrors();
 
+}
+
+void TextureRender::drawMesh(VboMesh mesh){
+	// 1rst attribute buffer : vertices
+	glUseProgram(program);
+	gl2::CheckForErrors();
+	
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexbuffer);
+	gl2::CheckForErrors();
+	
+	glVertexAttribPointer(
+						  ATTRIB_VERTEX,       // attribute
+						  3,                  // size
+						  GL_FLOAT,           // type
+						  GL_FALSE,           // normalized?
+						  mesh.getStride() *sizeof(GLfloat),                  // stride
+						  (GLvoid*)0            // array buffer offset
+						  );
+	
+	glEnableVertexAttribArray(ATTRIB_VERTEX);
+	
+	glVertexAttribPointer(
+						  ATTRIB_UV,       // attribute
+						  3,                  // size
+						  GL_FLOAT,           // type
+						  GL_FALSE,           // normalized?
+						  mesh.getStride() *sizeof(GLfloat),                  // stride
+						  (GLvoid*) (3 * sizeof(GLfloat))         // array buffer offset
+						  );
+	
+	glEnableVertexAttribArray(ATTRIB_UV);
+	
+	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	gl2::CheckForErrors();
+	
+	glDisableVertexAttribArray(ATTRIB_VERTEX);
+	glDisableVertexAttribArray(ATTRIB_UV);
+	glUseProgram(0);
+	
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindVertexArrayOES(0);
+	
+	
 }
 
 

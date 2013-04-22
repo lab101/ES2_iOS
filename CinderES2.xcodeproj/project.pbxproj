@@ -71,8 +71,6 @@
 		154EA0FF16CBF5D0006E7F9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		154EA10116CBF5D0006E7F9A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		154EA10316CBF5D0006E7F9A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		154EA10516CBF5D0006E7F9A /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		154EA10716CBF5D0006E7F9A /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		154EA10916CBF5D0006E7F9A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		154EA10A16CBF5D0006E7F9A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		154EA10D16CBF5D0006E7F9A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
@@ -139,8 +137,6 @@
 			children = (
 				154EA0FC16CBF5D0006E7F9A /* AppDelegate.h */,
 				154EA0FD16CBF5D0006E7F9A /* AppDelegate.m */,
-				154EA10516CBF5D0006E7F9A /* Shader.fsh */,
-				154EA10716CBF5D0006E7F9A /* Shader.vsh */,
 				154EA10916CBF5D0006E7F9A /* ViewController.h */,
 				154EA10A16CBF5D0006E7F9A /* ViewController.m */,
 				154EA10C16CBF5D0006E7F9A /* ViewController.xib */,

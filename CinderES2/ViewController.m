@@ -107,6 +107,8 @@
 	}
         
     TouchDispatcher::Instance()->touchesBegan([self NSSetToVector:touches]);
+	std::cout << "#began #" << std::endl;
+
 	[self updateTouches];
 }
 

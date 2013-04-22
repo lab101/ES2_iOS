@@ -31,21 +31,16 @@ class mainController{
 private:
 	
     ci::gl::Texture texture;
-    
-    GLuint _vertexArray;
-    GLuint _vertexBuffer;
-    
-    
-    GLuint program;
-    GLint uWorldMatrix;
-    
+	ci::Matrix44f localMatrix;
+
 	// classic mesh
-    ci::TriMesh mesh;
+    ci::TriMesh mesh1;
+    ci::TriMesh mesh2;
 	VboMesh* vboMesh;
 	ci::CameraOrtho orthoCamera;
     ci::CameraPersp perspectiveCamera;
 
-	ColorRender perspectiveRender;
+	TextureRender perspectiveRender;
 	
 
     
@@ -54,10 +49,9 @@ private:
     uiSprite star;
     
     bool isRotating;
-	int countScreenshot;
+	int frameCounter;
 	
-	//test
-	GLuint _storeFramebuffer,_storeRenderbuffer;
+	ci::Vec2f lastTouchPoint;
 
 public:
 	
@@ -77,6 +71,7 @@ public:
 
 	
 	void touchesBegan(std::vector<ci::Vec2f> touches);
+	void touchesEnded(std::vector<ci::Vec2f> touches);
     void touchesMoved(std::vector<ci::Vec2f> touches);
 
 //	void touchesMoved(std::vector<ci::Vec2f> touches);

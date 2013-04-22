@@ -11,8 +11,20 @@
 using namespace ci;
 
 
+bool VboMesh::hasTexCoords(){
+	return mHasTexCoords;
+}
+
+int VboMesh::getStride(){
+	return mStride;
+}
+
+
 
 VboMesh::VboMesh(ci::TriMesh mesh){
+	
+	mHasTexCoords = false;
+	
 	
 	GLuint VertexArrayID;
 	glGenVertexArraysOES(1, &VertexArrayID);
@@ -25,15 +37,41 @@ VboMesh::VboMesh(ci::TriMesh mesh){
 	
 	
 	
-	GLfloat g_vertex_buffer_data[mesh.getNumVertices()*3];//
+	mStride  = 3;
+	if(mesh.hasTexCoords()){ mStride += 3; mHasTexCoords = true;}
+	if(mesh.hasColorsRGBA()) mStride += 4;
+	if(mesh.hasNormals()) mStride += 2;
+	
+	GLfloat g_vertex_buffer_data[mesh.getNumVertices()*mStride];
+
     
     int i = 0;
     for (std::vector<Vec3f>::const_iterator it = mesh.getVertices().begin(); it != mesh.getVertices().end(); ++it) {
-        g_vertex_buffer_data[i] = it->x;
+//		std::cout << i  << ":" <<  it->x << std::endl;
+//		std::cout << i +1<< ":" <<  it->y << std::endl;
+//		std::cout << i +2 << ":" <<  it->z << std::endl;
+
+        
+		g_vertex_buffer_data[i] = it->x;
         g_vertex_buffer_data[i +1] = it->y;
         g_vertex_buffer_data[i +2] = it->z;
-        i+=3;
+        i+=mStride;
     }
+	
+	
+	i = 3;
+    for (std::vector<Vec2f>::const_iterator it = mesh.getTexCoords().begin(); it != mesh.getTexCoords().end(); ++it) {
+//		std::cout << i  << ":" <<  it->x << std::endl;
+//		std::cout << i +1 << ":" <<  it->y << std::endl;
+		
+        
+		g_vertex_buffer_data[i] = it->x;
+        g_vertex_buffer_data[i +1] = it->y;
+        g_vertex_buffer_data[i +2] = 1;
+        i+=mStride;
+		
+    }
+
     
 //	{
 //		-1.0f, -1.0f, 0.0f,

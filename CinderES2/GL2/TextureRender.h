@@ -23,6 +23,45 @@
 
 #include "GLConstants.h"
 #include "uiSprite.h"
+#include "vboMesh.h"
+
+
+// Standard shaders
+const char vShaderStr[] =
+"attribute vec4 position;   \n"
+"attribute vec3 uv;			\n"
+
+"uniform mat4 modelViewProjectionMatrix;"
+"uniform mat3 normalMatrix;"
+"varying vec3 uvVarying;			\n"
+
+"void main()                 \n"
+"{                           \n"
+"   gl_Position = modelViewProjectionMatrix * position; \n"
+"	uvVarying.x = uv.x; \n"
+"#ifdef GL_ES \n"
+"	uvVarying.y = 1.0-uv.y; \n"
+"#else	\n"
+"	uvVarying.y = uv.y; \n"
+"#endif"
+"	uvVarying.y = uv.y; \n"
+"	uvVarying.z = uv.z; \n"
+
+"}                           \n";
+
+const char fShaderStr[] =
+"#ifdef GL_ES \n"
+" precision mediump float;\n"
+"#endif	\n"
+"uniform sampler2D texture;						\n"
+"varying  vec3 uvVarying;						\n"
+
+"void main()									\n"
+"{												\n"
+"  gl_FragColor = texture2D(texture, uvVarying.xy);		\n"
+"  gl_FragColor.a   *= 0.9;						\n"
+"  gl_FragColor.xyz /= gl_FragColor.a;					\n"
+"}														\n";
 
 
 class TextureRender{
@@ -41,6 +80,8 @@ public:
 	void drawLine(const ci::Vec3f &start, const ci::Vec3f &end );
 	void drawMesh(const ci::TriMesh mesh);
 	void drawMesh(const ci::TriMesh mesh,GLint shape);
+	void drawMesh(VboMesh mesh);
+
 	void drawTexture(const ci::gl::Texture& texture);
 	void drawSprite(uiSprite& texture);
 	
@@ -60,7 +101,6 @@ public:
 	static TextureRender* Instance();
 	
 	void setup();
-	
 	
 };
 
