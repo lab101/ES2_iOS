@@ -10,6 +10,8 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/ImageIo.h"
 
+#include "App.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -142,12 +144,12 @@ const ci::Matrix44f& uiSprite::getWorldMatrix(){
 
 
 void uiSprite::setupByResource(std::string fileName,float x,float y,int align){
-    gl::Texture texture =  loadImage(loadResource(fileName));
+    gl::Texture texture =  loadImage(gl2::getResourcePath(fileName));
     setupByTexture(texture, x, y, align);
 }
 
 void uiSprite::setupByAsset(std::string fileName,float x,float y,int align){
-    gl::Texture texture =  loadImage(loadAsset(fileName));
+    gl::Texture texture =  loadImage(gl2::getResourcePath(fileName));
     setupByTexture(texture, x, y, align);
 }
 

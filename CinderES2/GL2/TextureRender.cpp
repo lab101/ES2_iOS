@@ -226,6 +226,17 @@ void TextureRender::drawMesh(VboMesh mesh){
 	
 	glEnableVertexAttribArray(ATTRIB_UV);
 	
+    glVertexAttribPointer(
+						  ATTRIB_NORMAL,       // attribute
+						  3,                  // size
+						  GL_FLOAT,           // type
+						  GL_FALSE,           // normalized?
+						  mesh.getStride() *sizeof(GLfloat),                  // stride
+						  (GLvoid*) (6 * sizeof(GLfloat))         // array buffer offset
+						  );
+	
+	glEnableVertexAttribArray(ATTRIB_UV);
+	
 	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	gl2::CheckForErrors();
 	

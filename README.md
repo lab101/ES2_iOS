@@ -8,8 +8,9 @@ Currently supporting:
 - a color render for trimesh & lines.
 - texture rendering through trimesh
 - basic multitouch support
+- screen rotation
 
 So really basic at the moment.
+Most stuff is implemented when I need it.
 
-only tested on iphone
-
+Don't forget to set your cinder_path in the project settings

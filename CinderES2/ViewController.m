@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "mainController.h"
-#import "TouchDispatcher.h"
 
+#import "TouchDispatcher.h"
+#import "App.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -18,7 +19,7 @@
 	mainController main;
 	GLKView *view;
 	
-	ci::Vec2f screenSize;
+    ci::Vec2f screenSize;
 
 	NSMutableArray* activeTouches;
 }
@@ -72,8 +73,24 @@
 //	view. = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                    [NSNumber numberWithBool:YES], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
     main.setup();
-	screenSize.set(CGRectGetWidth([UIScreen mainScreen].applicationFrame),CGRectGetHeight([UIScreen mainScreen].applicationFrame));
-	main.setSize(screenSize);
+	
+    
+    screenSize.set(CGRectGetWidth([UIScreen mainScreen].applicationFrame),CGRectGetHeight([UIScreen mainScreen].applicationFrame));
+    
+    gl2::App::Instance()->screenSize = screenSize;
+
+
+    
+
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    [self updateOrientation:orientation];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(deviceOrientationDidChangeNotification:)
+     name:UIApplicationDidChangeStatusBarOrientationNotification
+     object:nil];
 
 }
 
@@ -90,6 +107,44 @@
     return touchVec;   
 }
 
+
+- (void)deviceOrientationDidChangeNotification:(NSNotification*)notification
+{
+    
+//    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    [self updateOrientation:orientation];
+}
+
+
+-(void) updateOrientation: (UIInterfaceOrientation) orientation
+{
+  //  NSLog("%@",orientation);
+    std::cout << orientation << std::endl;
+    switch (orientation)
+    {
+            
+        case UIInterfaceOrientationPortrait:
+            gl2::App::Instance()->orientationChanged(gl2::Portrait);
+            std::cout << "portrait" << std::endl;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            gl2::App::Instance()->orientationChanged(gl2::PortraitUpsideDown);
+            std::cout << "portrait" << std::endl;
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+            gl2::App::Instance()->orientationChanged(gl2::LandscapeLeft);
+            std::cout << "landscape" << std::endl;
+            break;
+            
+        case UIInterfaceOrientationLandscapeRight:
+            gl2::App::Instance()->orientationChanged(gl2::LandscapeRight);
+            std::cout << "landscape" << std::endl;
+
+            break;
+    }
+
+}
 
 
 

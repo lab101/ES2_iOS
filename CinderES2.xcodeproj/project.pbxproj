@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0160A88616DD26E6002ADB12 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0160A88516DD26E6002ADB12 /* 1.png */; };
 		0160A88916DD28F1002ADB12 /* TouchDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0160A88716DD28F1002ADB12 /* TouchDispatcher.cpp */; };
 		0160A88B16DD598A002ADB12 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 0160A88A16DD598A002ADB12 /* star.png */; };
 		019E8CDE16CD253E001D7D91 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019E8CDD16CD253E001D7D91 /* CoreText.framework */; };
 		01A3F1F216DAB95F00BB10D0 /* uiSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1EC16DAB95F00BB10D0 /* uiSprite.cpp */; };
 		01A3F1F316DAB95F00BB10D0 /* uiSpriteButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1EE16DAB95F00BB10D0 /* uiSpriteButton.cpp */; };
 		01A3F1F416DAB95F00BB10D0 /* uiSpriteRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */; };
+		01D5D5B2175FA63000A303D9 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D5D5B1175FA63000A303D9 /* ImageIO.framework */; };
+		01D5D5B4175FA65600A303D9 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01D5D5B3175FA65600A303D9 /* MobileCoreServices.framework */; };
+		01D5D5B6175FA9E000A303D9 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D5B5175FA9E000A303D9 /* 1.png */; };
+		01D5D5BC175FAC3A00A303D9 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D5BA175FAC3A00A303D9 /* App.cpp */; };
+		01D5D5BE175FB10A00A303D9 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D5BD175FB10A00A303D9 /* globe.png */; };
 		154EA0EA16CBF5D0006E7F9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA0E916CBF5D0006E7F9A /* UIKit.framework */; };
 		154EA0EC16CBF5D0006E7F9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA0EB16CBF5D0006E7F9A /* Foundation.framework */; };
 		154EA0EE16CBF5D0006E7F9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA0ED16CBF5D0006E7F9A /* CoreGraphics.framework */; };
@@ -43,7 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0160A88516DD26E6002ADB12 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = images/1.png; sourceTree = "<group>"; };
 		0160A88716DD28F1002ADB12 /* TouchDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TouchDispatcher.cpp; path = helpers/TouchDispatcher.cpp; sourceTree = "<group>"; };
 		0160A88816DD28F1002ADB12 /* TouchDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchDispatcher.h; path = helpers/TouchDispatcher.h; sourceTree = "<group>"; };
 		0160A88A16DD598A002ADB12 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = images/star.png; sourceTree = "<group>"; };
@@ -56,6 +59,12 @@
 		01A3F1EF16DAB95F00BB10D0 /* uiSpriteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiSpriteButton.h; path = ui/uiSpriteButton.h; sourceTree = "<group>"; };
 		01A3F1F016DAB95F00BB10D0 /* uiSpriteRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uiSpriteRender.cpp; path = ui/uiSpriteRender.cpp; sourceTree = "<group>"; };
 		01A3F1F116DAB95F00BB10D0 /* uiSpriteRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uiSpriteRender.h; path = ui/uiSpriteRender.h; sourceTree = "<group>"; };
+		01D5D5B1175FA63000A303D9 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		01D5D5B3175FA65600A303D9 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		01D5D5B5175FA9E000A303D9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = images/1.png; sourceTree = "<group>"; };
+		01D5D5BA175FAC3A00A303D9 /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = App.cpp; path = src/App.cpp; sourceTree = "<group>"; };
+		01D5D5BB175FAC3A00A303D9 /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = App.h; path = src/App.h; sourceTree = "<group>"; };
+		01D5D5BD175FB10A00A303D9 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = globe.png; path = images/globe.png; sourceTree = "<group>"; };
 		154EA0E616CBF5D0006E7F9A /* CinderES2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinderES2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		154EA0E916CBF5D0006E7F9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		154EA0EB16CBF5D0006E7F9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,6 +111,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D5D5B4175FA65600A303D9 /* MobileCoreServices.framework in Frameworks */,
+				01D5D5B2175FA63000A303D9 /* ImageIO.framework in Frameworks */,
 				019E8CDE16CD253E001D7D91 /* CoreText.framework in Frameworks */,
 				154EA12216CC1096006E7F9A /* QuartzCore.framework in Frameworks */,
 				154EA12116CC1084006E7F9A /* CoreVideo.framework in Frameworks */,
@@ -147,9 +158,10 @@
 		1547CD3F16D79CED00B51B85 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				01D5D5BD175FB10A00A303D9 /* globe.png */,
+				01D5D5B5175FA9E000A303D9 /* 1.png */,
 				15A1502F171C5B2D00CF403F /* shaders */,
 				0160A88A16DD598A002ADB12 /* star.png */,
-				0160A88516DD26E6002ADB12 /* 1.png */,
 				15747B7A16DBC58A001EFA87 /* btnStart.png */,
 			);
 			name = Resources;
@@ -158,7 +170,6 @@
 		154EA0DD16CBF5D0006E7F9A = {
 			isa = PBXGroup;
 			children = (
-				019E8CDD16CD253E001D7D91 /* CoreText.framework */,
 				154EA0F316CBF5D0006E7F9A /* CinderES2 */,
 				154EA0E816CBF5D0006E7F9A /* Frameworks */,
 				154EA0E716CBF5D0006E7F9A /* Products */,
@@ -176,6 +187,9 @@
 		154EA0E816CBF5D0006E7F9A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01D5D5B3175FA65600A303D9 /* MobileCoreServices.framework */,
+				01D5D5B1175FA63000A303D9 /* ImageIO.framework */,
+				019E8CDD16CD253E001D7D91 /* CoreText.framework */,
 				154EA12016CC1084006E7F9A /* CoreVideo.framework */,
 				154EA11E16CC1061006E7F9A /* QuartzCore.framework */,
 				154EA11C16CC104D006E7F9A /* CoreMedia.framework */,
@@ -244,6 +258,8 @@
 				0160A88D16DD634B002ADB12 /* Signal.h */,
 				0160A88716DD28F1002ADB12 /* TouchDispatcher.cpp */,
 				0160A88816DD28F1002ADB12 /* TouchDispatcher.h */,
+				01D5D5BA175FAC3A00A303D9 /* App.cpp */,
+				01D5D5BB175FAC3A00A303D9 /* App.h */,
 			);
 			name = helpers;
 			sourceTree = "<group>";
@@ -314,10 +330,11 @@
 				154EA10416CBF5D0006E7F9A /* Default-568h@2x.png in Resources */,
 				154EA10E16CBF5D0006E7F9A /* ViewController.xib in Resources */,
 				15747B7B16DBC58A001EFA87 /* btnStart.png in Resources */,
-				0160A88616DD26E6002ADB12 /* 1.png in Resources */,
 				0160A88B16DD598A002ADB12 /* star.png in Resources */,
 				15A15032171C5B3800CF403F /* lamber_frag.glsl in Resources */,
 				15A15033171C5B3800CF403F /* lamber_vert.glsl in Resources */,
+				01D5D5B6175FA9E000A303D9 /* 1.png in Resources */,
+				01D5D5BE175FB10A00A303D9 /* globe.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +357,7 @@
 				01A3F1F316DAB95F00BB10D0 /* uiSpriteButton.cpp in Sources */,
 				01A3F1F416DAB95F00BB10D0 /* uiSpriteRender.cpp in Sources */,
 				0160A88916DD28F1002ADB12 /* TouchDispatcher.cpp in Sources */,
+				01D5D5BC175FAC3A00A303D9 /* App.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,8 +388,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CINDER_PATH = ../../../;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -408,8 +426,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CINDER_PATH = ../../../;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -440,7 +458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CINDER_PATH = ../../;
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -473,7 +491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CINDER_PATH = ../../;
-				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_CXX_LIBRARY = "libc++";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

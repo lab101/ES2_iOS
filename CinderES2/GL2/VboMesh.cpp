@@ -40,38 +40,57 @@ VboMesh::VboMesh(ci::TriMesh mesh){
 	mStride  = 3;
 	if(mesh.hasTexCoords()){ mStride += 3; mHasTexCoords = true;}
 	if(mesh.hasColorsRGBA()) mStride += 4;
-	if(mesh.hasNormals()) mStride += 2;
+	if(mesh.hasNormals()) mStride += 3;
 	
 	GLfloat g_vertex_buffer_data[mesh.getNumVertices()*mStride];
 
     
-    int i = 0;
+    int arrayIndex = 0;
+    int indexOffset = 0;
+    
     for (std::vector<Vec3f>::const_iterator it = mesh.getVertices().begin(); it != mesh.getVertices().end(); ++it) {
-//		std::cout << i  << ":" <<  it->x << std::endl;
-//		std::cout << i +1<< ":" <<  it->y << std::endl;
-//		std::cout << i +2 << ":" <<  it->z << std::endl;
 
         
-		g_vertex_buffer_data[i] = it->x;
-        g_vertex_buffer_data[i +1] = it->y;
-        g_vertex_buffer_data[i +2] = it->z;
-        i+=mStride;
+		g_vertex_buffer_data[arrayIndex] = it->x;
+        g_vertex_buffer_data[arrayIndex +1] = it->y;
+        g_vertex_buffer_data[arrayIndex +2] = it->z;
+        arrayIndex+=mStride;
     }
+    
+    indexOffset += 3;
+
+    if(mesh.hasTexCoords()){
 	
-	
-	i = 3;
-    for (std::vector<Vec2f>::const_iterator it = mesh.getTexCoords().begin(); it != mesh.getTexCoords().end(); ++it) {
-//		std::cout << i  << ":" <<  it->x << std::endl;
-//		std::cout << i +1 << ":" <<  it->y << std::endl;
-		
+        arrayIndex = indexOffset;
+        for (std::vector<Vec2f>::const_iterator it = mesh.getTexCoords().begin(); it != mesh.getTexCoords().end(); ++it) {		
+            
+            g_vertex_buffer_data[arrayIndex] = it->x;
+            g_vertex_buffer_data[arrayIndex +1] = it->y;
+            g_vertex_buffer_data[arrayIndex +2] = 1;
+            arrayIndex+=mStride;
+            
+        }
         
-		g_vertex_buffer_data[i] = it->x;
-        g_vertex_buffer_data[i +1] = it->y;
-        g_vertex_buffer_data[i +2] = 1;
-        i+=mStride;
-		
+        indexOffset+=3;
     }
 
+    
+    
+    if(mesh.hasNormals()){
+        arrayIndex = indexOffset;
+
+        for (std::vector<Vec3f>::const_iterator it = mesh.getNormals().begin(); it != mesh.getNormals().end(); ++it) {
+            
+            g_vertex_buffer_data[arrayIndex] = it->x;
+            g_vertex_buffer_data[arrayIndex +1] = it->y;
+            g_vertex_buffer_data[arrayIndex +2] = it->z;
+            arrayIndex+=mStride;
+        }
+    }
+
+    
+    
+    
     
 //	{
 //		-1.0f, -1.0f, 0.0f,

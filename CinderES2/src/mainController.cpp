@@ -14,10 +14,10 @@
 #include "checkError.h"
 #include "TouchDispatcher.h"
 
+#include "App.h"
 
-
+using namespace std;
 using namespace ci;
-using namespace app;
 using namespace gl2;
 
 
@@ -41,14 +41,19 @@ void mainController::setup(){
 
 	
 	//mesh2
+    // vertexes
 	mesh2.appendVertex(Vec3f(-100,100,0));
     mesh2.appendVertex(Vec3f(-100,-100,0));
     mesh2.appendVertex(Vec3f(100,-100,0));
-	
+	// texture coordinates
 	mesh2.appendTexCoord(Vec2f(0,1));
 	mesh2.appendTexCoord(Vec2f(0,0));
 	mesh2.appendTexCoord(Vec2f(1,0));
-
+    // normals
+	mesh2.appendNormal(Vec3f(0,0,-1));
+	mesh2.appendNormal(Vec3f(0,0,-1));
+	mesh2.appendNormal(Vec3f(0,0,-1));
+    
 	
 	
 	glUseProgram(ColorRender::Instance()->program);
@@ -60,8 +65,9 @@ void mainController::setup(){
 
 	setLineWidth(8);
     
+
     
-    texture = ci::loadImage(ci::app::loadResource("1.png"));
+    texture = ci::loadImage(gl2::getResourcePath("1.png"));
 	std::cout << "texture loaded " << texture.getWidth() << std::endl;
 	
     // double scale for retina images
@@ -74,7 +80,7 @@ void mainController::setup(){
 	button.update();
     
     star.setTexureScale(2);
-    star.setupByResource("star.png", 120, 60, ALIGN_CENTER);
+    star.setupByResource("globe.png", 120, 60, ALIGN_CENTER);
     
     //glDisable(GL_DEPTH_TEST);
     
@@ -88,6 +94,7 @@ void mainController::setup(){
     TouchDispatcher::Instance()->onTouchesMoved.Connect(this,&mainController::touchesMoved);
     TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&mainController::touchesEnded);
 	
+    App::Instance()->onSizeChanged.Connect(this,&mainController::setSize);
 	//trackball.set(0.01, 0, 1, 0);
 	frameCounter = 0;
 	lastTouchPoint.set(-1 ,-1);
@@ -186,7 +193,7 @@ void mainController::update(){
     star.update();
 	
 	
-	localMatrix.lowerTriangular()
+	//localMatrix.lowerTriangular()
 //	float newYaw = trackball.getYaw()+ 0.1;
 //	trackball.set(0,newYaw,0);
 
@@ -198,7 +205,8 @@ void mainController::draw(){
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.7f, 0.7, 0.75f, 1.0f);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+	glClearColor(0.f, 0., 0.f, 1.0f);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	setColor(ColorA(1,0.4,0,1));
 
 	glEnable(GL_BLEND);
