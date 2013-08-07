@@ -22,12 +22,29 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+	
+	for (NSString* family in [UIFont familyNames])
+	{
+		//		NSLog(@"%@", family);
+		//
+		//		for (NSString* name in [UIFont fontNamesForFamilyName: family])
+		//		{
+		//			NSLog(@"  %@", name);
+		//		}
+	}
+
+	
+
     // Override point for customization after application launch.
 	self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
 	self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+	
+	
+[UIApplication sharedApplication].idleTimerDisabled = YES;	
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -43,16 +60,21 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+	[self.viewController restart];
 	// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+	[self.viewController restart];
+
 	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+	[self.viewController restart];
+
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

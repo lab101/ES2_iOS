@@ -59,9 +59,22 @@ const char fShaderStr[] =
 "void main()									\n"
 "{												\n"
 "  gl_FragColor = texture2D(texture, uvVarying.xy);		\n"
-"  gl_FragColor.a   *= 0.9;						\n"
+"  gl_FragColor.a   *= 1.0;						\n"
 "  gl_FragColor.xyz /= gl_FragColor.a;					\n"
+
+//"	vec2 f1 = gl_FragCoord.xy * 0.01;			"
+//"	f1.x = 512.0 * .02 - f1.x;	"
+//"	f1.y = 384.0 * .02 - f1.y;	"
+//"	f1.x = f1.x * f1.x; "
+//"	f1.y = f1.y * f1.y; "
+//
+//
+//
+//"	if((f1.x + f1.y) < (4.6 * 4.6) ) gl_FragColor *= 0.0;  "
+
 "}														\n";
+
+
 
 
 class TextureRender{

@@ -47,6 +47,9 @@ void TextureRender::setup(){
 	
 	gl2::CheckForErrors();
 	
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindVertexArrayOES(0);
+
     // Create the program object
     program = glCreateProgram();
 	gl2::CheckForErrors();
@@ -93,6 +96,8 @@ void TextureRender::setup(){
 	
 	isSetup = true;
 	gl2::CheckForErrors();
+	
+	
     
 	
 }
@@ -197,55 +202,57 @@ void TextureRender::drawMesh(const ci::TriMesh mesh,GLint shape){
 }
 
 void TextureRender::drawMesh(VboMesh mesh){
-	// 1rst attribute buffer : vertices
-	glUseProgram(program);
-	gl2::CheckForErrors();
-	
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexbuffer);
-	gl2::CheckForErrors();
-	
-	glVertexAttribPointer(
-						  ATTRIB_VERTEX,       // attribute
-						  3,                  // size
-						  GL_FLOAT,           // type
-						  GL_FALSE,           // normalized?
-						  mesh.getStride() *sizeof(GLfloat),                  // stride
-						  (GLvoid*)0            // array buffer offset
-						  );
-	
-	glEnableVertexAttribArray(ATTRIB_VERTEX);
-	
-	glVertexAttribPointer(
-						  ATTRIB_UV,       // attribute
-						  3,                  // size
-						  GL_FLOAT,           // type
-						  GL_FALSE,           // normalized?
-						  mesh.getStride() *sizeof(GLfloat),                  // stride
-						  (GLvoid*) (3 * sizeof(GLfloat))         // array buffer offset
-						  );
-	
-	glEnableVertexAttribArray(ATTRIB_UV);
-	
-    glVertexAttribPointer(
-						  ATTRIB_NORMAL,       // attribute
-						  3,                  // size
-						  GL_FLOAT,           // type
-						  GL_FALSE,           // normalized?
-						  mesh.getStride() *sizeof(GLfloat),                  // stride
-						  (GLvoid*) (6 * sizeof(GLfloat))         // array buffer offset
-						  );
-	
-	glEnableVertexAttribArray(ATTRIB_UV);
-	
-	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-	gl2::CheckForErrors();
-	
-	glDisableVertexAttribArray(ATTRIB_VERTEX);
-	glDisableVertexAttribArray(ATTRIB_UV);
-	glUseProgram(0);
-	
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-    glBindVertexArrayOES(0);
+//	// 1rst attribute buffer : vertices
+//	glUseProgram(program);
+//	gl2::CheckForErrors();
+//	
+//	
+//	
+//	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertexbuffer);
+//	gl2::CheckForErrors();
+//	
+//	glVertexAttribPointer(
+//						  ATTRIB_VERTEX,       // attribute
+//						  3,                  // size
+//						  GL_FLOAT,           // type
+//						  GL_FALSE,           // normalized?
+//						  mesh.getStride() *sizeof(GLfloat),                  // stride
+//						  (GLvoid*)0            // array buffer offset
+//						  );
+//	
+//	glEnableVertexAttribArray(ATTRIB_VERTEX);
+//	
+//	glVertexAttribPointer(
+//						  ATTRIB_UV,       // attribute
+//						  3,                  // size
+//						  GL_FLOAT,           // type
+//						  GL_FALSE,           // normalized?
+//						  mesh.getStride() *sizeof(GLfloat),                  // stride
+//						  (GLvoid*) (3 * sizeof(GLfloat))         // array buffer offset
+//						  );
+//	
+//	glEnableVertexAttribArray(ATTRIB_UV);
+//	
+//    glVertexAttribPointer(
+//						  ATTRIB_NORMAL,       // attribute
+//						  3,                  // size
+//						  GL_FLOAT,           // type
+//						  GL_FALSE,           // normalized?
+//						  mesh.getStride() *sizeof(GLfloat),                  // stride
+//						  (GLvoid*) (6 * sizeof(GLfloat))         // array buffer offset
+//						  );
+//	
+//	glEnableVertexAttribArray(ATTRIB_UV);
+//	
+//	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+//	gl2::CheckForErrors();
+//	
+//	glDisableVertexAttribArray(ATTRIB_VERTEX);
+//	glDisableVertexAttribArray(ATTRIB_UV);
+//	glUseProgram(0);
+//	
+//	glBindBuffer(GL_ARRAY_BUFFER,0);
+//    glBindVertexArrayOES(0);
 	
 	
 }
@@ -253,7 +260,12 @@ void TextureRender::drawMesh(VboMesh mesh){
 
 void TextureRender::drawSprite(uiSprite& sprite){
 	if(!sprite.isTextureLoaded || sprite.getAlpha()==1) return;
+	
+
 	glUseProgram(program);
+//	glBindBuffer(GL_ARRAY_BUFFER,0);
+//    glBindVertexArrayOES(0);
+
 
     	
 	bindTexture(sprite.getTexture());

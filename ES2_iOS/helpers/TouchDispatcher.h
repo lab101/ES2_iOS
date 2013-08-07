@@ -27,7 +27,7 @@ public:
     static TouchDispatcher* Instance();
 
     
-    std::vector<ci::Vec2f> getActiveTouches();
+    const std::vector<ci::Vec2f> getActiveTouches();
 	void setActiveTouches(std::vector<ci::Vec2f> touches);
 	
     void touchesBegan(std::vector<ci::Vec2f> touches);

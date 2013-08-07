@@ -121,12 +121,16 @@ public:
 	
 	//properties
 	void setCenterPosition(ci::Vec2f newPosition);
-	void setAlpha(float alpha);
-	void setRotation(float rotation);
-    
-    float getRotation() const;
-    float getAlpha() const;
 
+	void setAlpha(float alpha);
+	float getAlpha() const;
+
+	void setRotation(float rotation);
+    float getRotation() const;
+	
+	void setScale(float scale);
+    float getScale() const;
+	
 };
 
 

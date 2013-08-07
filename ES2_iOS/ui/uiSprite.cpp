@@ -35,12 +35,17 @@ uiSprite::uiSprite(){
 	
 	data = new float [36];
 	
-	// This will identify our vertex buffer
-	GLuint vertexbuffer;
-		// Generate 1 buffer, put the resulting identifier in vertexbuffer
-	glGenBuffers(1, &vertexbuffer);
-		// The following commands will talk about our 'vertexbuffer' buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	mModelMatrix.setToIdentity();
+	mWorldMatrix.setToIdentity();
+	
+//	// This will identify our vertex buffer
+//	GLuint vertexbuffer;
+//		// Generate 1 buffer, put the resulting identifier in vertexbuffer
+//	glGenBuffers(1, &vertexbuffer);
+//		// The following commands will talk about our 'vertexbuffer' buffer
+//	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	
+	
 
 }
 
@@ -167,6 +172,20 @@ void uiSprite::setAlpha(float alpha){
 	isDirty = true;
 }
 
+float uiSprite::getAlpha() const{
+    return mAlpha;
+}
+
+void uiSprite::setScale(float scale){
+	mScale = scale;
+	isDirty = true;
+}
+
+float uiSprite::getScale() const{
+    return mScale;
+}
+
+
 
 void uiSprite::setTotalAnimationframes(int totalAnimationframes){
 	mTotalAnimationframes = totalAnimationframes;
@@ -199,9 +218,6 @@ float uiSprite::getRotation() const{
     return mRotationRadians / (M_PI/180.0);
 }
 
-float uiSprite::getAlpha() const{
-    return mAlpha;
-}
 
 
 

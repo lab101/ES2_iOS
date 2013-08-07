@@ -66,11 +66,15 @@ void mainController::setup(){
 	setLineWidth(8);
     
 
-    
+    // used by custom mesh.
     texture = ci::loadImage(gl2::getResourcePath("1.png"));
 	std::cout << "texture loaded " << texture.getWidth() << std::endl;
 	
     // double scale for retina images
+    
+    background.setTexureScale(2);
+    background.setupByResource("background@2x.png", 0, 0, ALIGN_TOPLEFT);
+    
     button.setTexureScale(2);
 	button.setupByResource("btnStart.png", 320/2, 568/2, ALIGN_CENTER);
 	button.onClicked.Connect(this,&mainController::clicked);
@@ -79,13 +83,13 @@ void mainController::setup(){
 	button.resetData();
 	button.update();
     
-    star.setTexureScale(2);
-    star.setupByResource("globe.png", 120, 60, ALIGN_CENTER);
+    globe.setTexureScale(2);
+    globe.setupByResource("globe@2x.png", 1024/2.0, 768/ 2.0, ALIGN_CENTER);
+
+    globeDots.setTexureScale(2);
+    globeDots.setupByResource("globe_dots@2x.png", 1024/2.0, 768/ 2.0, ALIGN_CENTER);
+        
     
-    //glDisable(GL_DEPTH_TEST);
-    
-    
-    isRotating = false;
     
     perspectiveRender.setup();
     //perspectiveRender.setColor(ColorA(1.0,0.0,1.0,1.0));
@@ -95,26 +99,31 @@ void mainController::setup(){
     TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&mainController::touchesEnded);
 	
     App::Instance()->onSizeChanged.Connect(this,&mainController::setSize);
-	//trackball.set(0.01, 0, 1, 0);
-	frameCounter = 0;
 	lastTouchPoint.set(-1 ,-1);
+    
+    // setup arc test
+    arc.setup();
+    arc.pCamera = &perspectiveCamera;
+    
+    
+    mTimeline->step(mTimer.getSeconds());
 }
 
 
 void mainController::touchesBegan(std::vector<ci::Vec2f> touches){
 	if(touches.size() > 1) return;
 	
-	std::cout << "started" << lastTouchPoint << std::endl;
-
 	lastTouchPoint = touches[0];
-	std::cout << lastTouchPoint << std::endl;
+    
+    //std::cout << "started" << lastTouchPoint << std::endl;
+	//std::cout << lastTouchPoint << std::endl;
 
 }
 
 void mainController::touchesEnded(std::vector<ci::Vec2f> touches){
 	if(touches.size() > 1) return;
 
-	std::cout << "ended" << lastTouchPoint << std::endl;
+	//std::cout << "ended" << lastTouchPoint << std::endl;
 
 	lastTouchPoint.set(-1 ,-1);
 }
@@ -124,39 +133,43 @@ void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
 
    // perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(touches[0].x /100 ,touches[0].y/100 ,-1),mesh.getVertices()[2], Vec3f::yAxis() );
 	
-	std::cout << lastTouchPoint << std::endl;
+	//std::cout << lastTouchPoint << std::endl;
 	
 	// check if first touchpoint
 	if (lastTouchPoint.x == -1 && lastTouchPoint.y == -1) {
 		return;
 	}
 	
-
-	Vec2f div = lastTouchPoint - touches[0];
+    
+    Vec2f diff = lastTouchPoint - touches[0];
+    
 	
-	//float newYaw = trackball.getYaw() + div.x/100.0;
-	//trackball.set(0,newYaw,0);
-	localMatrix.rotate(Vec3f(0,1,0), -div.x / 100.0);
-	localMatrix.rotate(Vec3f(1,0,0), div.y / 100.0);
+	float newX = rotationVector().x + (diff.y / 250.0);
+	if(fabs(newX) < 1.2)
+		rotationVector().x = newX;
+	
+	float newY = rotationVector().y + (diff.x / -250.0);
+	if(fabs(newY) < 1.2)
+		rotationVector().y  = newY;
+    
+	
 	lastTouchPoint = touches[0];
-
-	
-	/*
-	float lookatX = 150.0 + 320- (touches[0].x *2);
-	float lookatY = 150.0 + 568- (touches[0].y *2);
-	
-	perspectiveCamera.lookAt(Vec3f(lookatX,lookatY,+500.0),Vec3f(150.0,150.0,0.0),Vec3f::yAxis());
-    perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix());
-	 */
+    
+    arc.rotationVector = rotationVector();
 
 }
 
 
 void mainController::clicked(uiSpriteButton* button){
 	std::cout << button->argument;
-    button->setAlpha(1);
-    button->setCenterPosition(Vec2f(-button->getBoundingBox().getWidth(),button->getCenterPosition().y));
+//    button->setAlpha(1);
+//    button->setCenterPosition(Vec2f(-button->getBoundingBox().getWidth(),button->getCenterPosition().y));
 	//"clicked";
+    
+    
+    mTimeline->apply(&rotationVector, Vec2f(0.5,0.5), 2000.0f,EaseInOutQuad());
+    
+    
 }
 
 void mainController::setSize(ci::Vec2f size){
@@ -170,7 +183,7 @@ void mainController::setSize(ci::Vec2f size){
     
     // Create perspective camera for perspective render
     perspectiveCamera.setPerspective( 60.0f, size.x / size.y, 1.0f, 1000.0f );
-	perspectiveCamera.lookAt(Vec3f(0,0.0,+500.0),Vec3f(0.0,0.0,0.0),Vec3f::yAxis());
+	perspectiveCamera.lookAt(Vec3f(10,10.0,500.0),Vec3f(0.0,0.0,0.0),Vec3f::yAxis());
 
     
     perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix());
@@ -183,19 +196,16 @@ void mainController::setSize(ci::Vec2f size){
 
 void mainController::update(){
 	
-	++frameCounter;
-	//trackball.set(0, 0, sin(frameCounter/200.0));
 	perspectiveRender.setCameraMatrix(perspectiveCamera.getProjectionMatrix() * perspectiveCamera.getModelViewMatrix() * localMatrix);
 
-    star.setRotation(star.getRotation() + 1.0);
+    float time = sin(gl2::getCurrentTime() / 300.0);
+    globeDots.setScale(1 + time / 80.0);
     
+    globeDots.update();
 	button.update();
-    star.update();
-	
-	
-	//localMatrix.lowerTriangular()
-//	float newYaw = trackball.getYaw()+ 0.1;
-//	trackball.set(0,newYaw,0);
+    
+    mTimeline->step(mTimer.getSeconds());
+    arc.rotationVector = rotationVector();
 
 }
 
@@ -207,13 +217,18 @@ void mainController::draw(){
 	glClearColor(0.7f, 0.7, 0.75f, 1.0f);
 	glClearColor(0.f, 0., 0.f, 1.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	setColor(ColorA(1,0.4,0,1));
 
 	glEnable(GL_BLEND);
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    
+    
+    TextureRender::Instance()->drawSprite(background);
 
-	bindTexture(texture);
-    perspectiveRender.drawMesh(*vboMesh);
-    unbindTexture(texture);
+
+    //VBO is buggy needs some checks
+    //	  bindTexture(texture);
+    //    perspectiveRender.drawMesh(*vboMesh);
+    //    unbindTexture(texture);
     
 	
 	bindTexture(texture);
@@ -221,26 +236,34 @@ void mainController::draw(){
     unbindTexture(texture);
 
 	
-	
-    int nrOfTouches = TouchDispatcher::Instance()->getActiveTouches().size();
-	if(nrOfTouches > 1){
-		for(int i=0;i < nrOfTouches;++i){
-			for(int j=0;j < nrOfTouches;++j){
-				drawLine(Vec3f(TouchDispatcher::Instance()->getActiveTouches()[i].x,TouchDispatcher::Instance()->getActiveTouches()[i].y,0), Vec3f(TouchDispatcher::Instance()->getActiveTouches()[j].x,TouchDispatcher::Instance()->getActiveTouches()[j].y,0));
-			}
-		}
-	}
-	
-	glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    const vector<Vec2f> activeTouches =  TouchDispatcher::Instance()->getActiveTouches();
+    
+    for(vector<Vec2f>::const_iterator it = activeTouches.begin(); it != activeTouches.end();++it){
+        for(vector<Vec2f>::const_iterator it2 = activeTouches.begin(); it2 != activeTouches.end();++it2){
+            setLineWidth(4.0);
+            setColor(ColorA(1,1,1,1));
+            drawLine(Vec3f(it->x + 2,it->y+2,0), Vec3f(it2->x +2,it2->y +2,0));
 
-	TextureRender::Instance()->drawSprite(star);
+            setColor(ColorA(0,1,1,1));
+            drawLine(Vec3f(it->x,it->y,0), Vec3f(it2->x,it2->y,0));
+        }
+    }
+	
+    
+	
+    // render sprites
+	TextureRender::Instance()->drawSprite(globe);
+	TextureRender::Instance()->drawSprite(globeDots);
     TextureRender::Instance()->drawSprite(button);
+    
+    glEnable(GL_DEPTH_TEST);
+    arc.drawShape();
+    glDisable(GL_DEPTH_TEST);
 
 
 	glDisable(GL_BLEND);
 
-
-	
-     
 }
+
+
+

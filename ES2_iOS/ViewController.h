@@ -15,4 +15,7 @@
 
 //- (std::vector<ci::Vec2f>) NSSetToVector:(NSSet*) set;
 
+- (void) restart;
+
+
 @end

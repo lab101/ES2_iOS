@@ -24,7 +24,7 @@ TouchDispatcher::TouchDispatcher(){
 }
 
 
-std::vector<ci::Vec2f> TouchDispatcher::getActiveTouches(){
+const std::vector<ci::Vec2f> TouchDispatcher::getActiveTouches(){
     return mActiveTouches;
 }
 
@@ -32,6 +32,7 @@ std::vector<ci::Vec2f> TouchDispatcher::getActiveTouches(){
 void TouchDispatcher::setActiveTouches(std::vector<ci::Vec2f> touches){
 	mActiveTouches.clear();
 	mActiveTouches = touches;
+ //   std::cout << mActiveTouches.size() << std::endl;
 }
 
 void TouchDispatcher::touchesBegan(std::vector<ci::Vec2f> touches){
@@ -46,6 +47,7 @@ void TouchDispatcher::touchesEnded(std::vector<ci::Vec2f> touches){
 void TouchDispatcher::touchesMoved(std::vector<ci::Vec2f> touches){
     onTouchesMoved(touches);
 }
+
 
 
 

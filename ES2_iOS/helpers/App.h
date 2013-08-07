@@ -16,6 +16,7 @@
 #include "Delegate.h"
 
 #include "cinder/Vector.h"
+#include  "QuartzCore/QuartzCore.h"
 
 using namespace Gallant;
 
@@ -49,6 +50,7 @@ public:
 
     DeviceOrientation currentDeviceOrientation;
     ci::Vec2f screenSize;
+	float displayScale;
 
     
     Signal1< ci::Vec2f > onSizeChanged;
@@ -63,6 +65,11 @@ public:
     inline std::string getResourcePath(std::string fileName){
         return App::Instance()->getResourcePath(fileName);
     }
+	
+	inline float getCurrentTime(){
+        return CACurrentMediaTime() * 1000.0f;
+    }
+
 
 
 }

@@ -5,8 +5,15 @@
 
 #include "uiFontSprite.h"
 #include "cinder/app/AppBasic.h"
+#include "App.h"
+#include "cinder/app/AppCocoaTouch.h"
+
+#include "cinder/DataSource.h"
+#include "cinder/Filesystem.h"
 
 using namespace ci;
+
+#define CINDER_COCOA 1
 
 uiFontSprite::uiFontSprite(){
     mColor = Color( 1, 1, 1.1f );
@@ -22,7 +29,18 @@ void uiFontSprite::setup(){
 void uiFontSprite::setup(std::string fontName,int size,float x,float y,int align){
     mAlligment = align;
     mOriginalPoint.set(x, y);
-    mFont = ci::Font(ci::app::loadResource(fontName),size);
+//	std::cout << gl2::getResourcePath("DIN.ttf") << std::endl;
+//	
+//
+////	fs::path path(gl2::getResourcePath(fontName));
+//	fs::path path(gl2::getResourcePath(fontName));
+//	DataSourcePathRef p = DataSourcePath::create( path   );
+//	
+//	//Font  font(Font("Helvetica", 64));
+//
+////	DataSourcePath source(gl2::getResourcePath(fontName));
+    mFont = Font(fontName, size);
+// ci::Font( p,size);
     isTextureReady=false;
 }
 

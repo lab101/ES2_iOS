@@ -20,6 +20,7 @@ App::App(){
         resourcePath = std::string([NSResourcePath UTF8String]);
     
         currentDeviceOrientation = Unknown;
+		displayScale = 1;
         //return resourcePath + "/" +  fileName;
 }
 

@@ -24,9 +24,12 @@
 #include "uiSprite.h"
 #include "VboMesh.h"
 
+//tests
+#include "ArcRender.h"
+
 //#include "colorRender.h"
 
-class mainController{
+class mainController {
 
 private:
 	
@@ -44,14 +47,26 @@ private:
 	
 
     
-    
+
+
 	uiSpriteButton button;
-    uiSprite star;
+
+    uiSprite background;
+    uiSprite globe;
+    uiSprite globeDots;
     
-    bool isRotating;
-	int frameCounter;
+  //  bool isRotating;
+//	int frameCounter;
 	
 	ci::Vec2f lastTouchPoint;
+    
+    
+    ArcRender arc;
+    ci::Anim<ci::Vec2f> rotationVector;
+    
+    //timeline
+    ci::TimelineRef  mTimeline;
+    ci::Timer mTimer;
 
 public:
 	
@@ -74,6 +89,12 @@ public:
 	void touchesEnded(std::vector<ci::Vec2f> touches);
     void touchesMoved(std::vector<ci::Vec2f> touches);
 
+    
+    
+    mainController() : mTimer(true), mTimeline(ci::Timeline::create())
+    {
+        
+    };
 //	void touchesMoved(std::vector<ci::Vec2f> touches);
 
 
