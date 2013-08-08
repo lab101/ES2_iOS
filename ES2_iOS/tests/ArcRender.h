@@ -19,7 +19,7 @@
 
 #include "VboMesh.h"
 #include "GLConstants.h"
-
+#include "cinder/Timeline.h"
 
 #include "cinder/Quaternion.h"
 
@@ -34,6 +34,12 @@ private:
 	GLint uScreenCenter;
 	
 	bool isSetup;
+	
+	void touchesBegan(std::vector<ci::Vec2f> touches);
+	void touchesEnded(std::vector<ci::Vec2f> touches);
+    void touchesMoved(std::vector<ci::Vec2f> touches);
+
+	ci::Vec2f lastTouchPoint;
 	
 	
 	
@@ -56,7 +62,6 @@ public:
 	ArcRender();
 	
 	ci::CameraPersp* pCamera;
-	ci::Vec2f rotationVector;
 	ci::Quatf rotation;
 
 
@@ -68,6 +73,11 @@ public:
     float radiusOut;
     float radiusOutLong;
     float distance;
+
+	ci::Anim<ci::Vec2f> rotationVector;
+
+	
+
 
 };
 

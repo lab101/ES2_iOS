@@ -93,13 +93,8 @@ void mainController::setup(){
     
     perspectiveRender.setup();
     //perspectiveRender.setColor(ColorA(1.0,0.0,1.0,1.0));
-    
-    TouchDispatcher::Instance()->onTouchesBegan.Connect(this,&mainController::touchesBegan);
-    TouchDispatcher::Instance()->onTouchesMoved.Connect(this,&mainController::touchesMoved);
-    TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&mainController::touchesEnded);
 	
     App::Instance()->onSizeChanged.Connect(this,&mainController::setSize);
-	lastTouchPoint.set(-1 ,-1);
     
     // setup arc test
     arc.setup();
@@ -110,55 +105,6 @@ void mainController::setup(){
 }
 
 
-void mainController::touchesBegan(std::vector<ci::Vec2f> touches){
-	if(touches.size() > 1) return;
-	
-	lastTouchPoint = touches[0];
-    
-    //std::cout << "started" << lastTouchPoint << std::endl;
-	//std::cout << lastTouchPoint << std::endl;
-
-}
-
-void mainController::touchesEnded(std::vector<ci::Vec2f> touches){
-	if(touches.size() > 1) return;
-
-	//std::cout << "ended" << lastTouchPoint << std::endl;
-
-	lastTouchPoint.set(-1 ,-1);
-}
-
-void mainController::touchesMoved(std::vector<ci::Vec2f> touches){
-	if(touches.size() > 1) return;
-
-   // perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(touches[0].x /100 ,touches[0].y/100 ,-1),mesh.getVertices()[2], Vec3f::yAxis() );
-	
-	//std::cout << lastTouchPoint << std::endl;
-	
-	// check if first touchpoint
-	if (lastTouchPoint.x == -1 && lastTouchPoint.y == -1) {
-		return;
-	}
-	
-    
-    Vec2f diff = lastTouchPoint - touches[0];
-    
-	
-	float newX = rotationVector().x + (diff.y / 250.0);
-	if(fabs(newX) < 1.2)
-		rotationVector().x = newX;
-	
-	float newY = rotationVector().y + (diff.x / -250.0);
-	if(fabs(newY) < 1.2)
-		rotationVector().y  = newY;
-    
-	
-	lastTouchPoint = touches[0];
-    
-    arc.rotationVector = rotationVector();
-
-}
-
 
 void mainController::clicked(uiSpriteButton* button){
 	std::cout << button->argument;
@@ -167,7 +113,7 @@ void mainController::clicked(uiSpriteButton* button){
 	//"clicked";
     
     
-    mTimeline->apply(&rotationVector, Vec2f(0.5,0.5), 2000.0f,EaseInOutQuad());
+    mTimeline->apply(&arc.rotationVector, Vec2f(0.5,0.5), 2000.0f,EaseInOutQuad());
     
     
 }
@@ -205,7 +151,6 @@ void mainController::update(){
 	button.update();
     
     mTimeline->step(mTimer.getSeconds());
-    arc.rotationVector = rotationVector();
 
 }
 

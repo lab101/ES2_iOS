@@ -55,14 +55,8 @@ private:
     uiSprite globe;
     uiSprite globeDots;
     
-  //  bool isRotating;
-//	int frameCounter;
-	
-	ci::Vec2f lastTouchPoint;
-    
     
     ArcRender arc;
-    ci::Anim<ci::Vec2f> rotationVector;
     
     //timeline
     ci::TimelineRef  mTimeline;

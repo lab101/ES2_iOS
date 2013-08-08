@@ -12,6 +12,7 @@
 
 #include "cinder/Vector.h"
 #include "App.h"
+#include "TouchDispatcher.h"
 
 using namespace ci;
 
@@ -74,6 +75,8 @@ void ArcRender::setup(){
 	radiusOut = 200.0;
 	radiusOutLong = 210.0;
     distance = 0.02;
+
+	lastTouchPoint.set(-1 ,-1);
 
 	
 	gl2::CheckForErrors();
@@ -150,7 +153,64 @@ void ArcRender::setup(){
 	glUseProgram(0);
 	isSetup = true;
 	
+	
+	
+    TouchDispatcher::Instance()->onTouchesBegan.Connect(this,&ArcRender::touchesBegan);
+    TouchDispatcher::Instance()->onTouchesMoved.Connect(this,&ArcRender::touchesMoved);
+    TouchDispatcher::Instance()->onTouchesEnded.Connect(this,&ArcRender::touchesEnded);
+
+	
 }
+
+
+
+void ArcRender::touchesBegan(std::vector<ci::Vec2f> touches){
+	if(touches.size() > 1) return;
+	
+	lastTouchPoint = touches[0];
+    
+    //std::cout << "started" << lastTouchPoint << std::endl;
+	//std::cout << lastTouchPoint << std::endl;
+	
+}
+
+void ArcRender::touchesEnded(std::vector<ci::Vec2f> touches){
+	if(touches.size() > 1) return;
+	
+	//std::cout << "ended" << lastTouchPoint << std::endl;
+	
+	lastTouchPoint.set(-1 ,-1);
+}
+
+void ArcRender::touchesMoved(std::vector<ci::Vec2f> touches){
+	if(touches.size() > 1) return;
+	
+	// perspectiveCamera.lookAt( mesh.getVertices()[2] + Vec3f(touches[0].x /100 ,touches[0].y/100 ,-1),mesh.getVertices()[2], Vec3f::yAxis() );
+	
+	//std::cout << lastTouchPoint << std::endl;
+	
+	// check if first touchpoint
+	if (lastTouchPoint.x == -1 && lastTouchPoint.y == -1) {
+		return;
+	}
+	
+    
+    Vec2f diff = lastTouchPoint - touches[0];
+    
+	
+	float newX = rotationVector().x + (diff.y / 250.0);
+	if(fabs(newX) < 1.2)
+		rotationVector().x = newX;
+	
+	float newY = rotationVector().y + (diff.x / -250.0);
+	if(fabs(newY) < 1.2)
+		rotationVector().y  = newY;
+    
+	
+	lastTouchPoint = touches[0];
+	
+}
+
 
 void ArcRender::setCamera(ci::Camera camera){
  	glUseProgram(program);
@@ -168,7 +228,7 @@ void ArcRender::drawShape(){
 	glUseProgram(program);
 	
 	
-    rotation.set(rotationVector.x, 0, 0);
+    rotation.set(rotationVector().x, 0, 0);
 	
 	Matrix44f world = pCamera->getProjectionMatrix() * pCamera->getModelViewMatrix() * rotation.toMatrix44();
 
@@ -202,7 +262,7 @@ void ArcRender::drawShape(){
     }
 	
 	
-	rotation.set(0.0, rotationVector.y, 0);
+	rotation.set(0.0, rotationVector().y, 0);
 	world = pCamera->getProjectionMatrix() * pCamera->getModelViewMatrix() * rotation.toMatrix44();
 
 	glUniformMatrix4fv(uWorldMatrix, 1, 0,world.m);

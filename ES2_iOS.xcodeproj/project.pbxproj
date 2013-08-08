@@ -42,6 +42,7 @@
 		154EA11D16CC104D006E7F9A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA11C16CC104D006E7F9A /* CoreMedia.framework */; };
 		154EA12116CC1084006E7F9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA12016CC1084006E7F9A /* CoreVideo.framework */; };
 		154EA12216CC1096006E7F9A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154EA11E16CC1061006E7F9A /* QuartzCore.framework */; };
+		156EF99B17B3ABD100F8E7CE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 156EF99A17B3ABD100F8E7CE /* README.md */; };
 		15747B7B16DBC58A001EFA87 /* btnStart.png in Resources */ = {isa = PBXBuildFile; fileRef = 15747B7A16DBC58A001EFA87 /* btnStart.png */; };
 		15A15032171C5B3800CF403F /* lamber_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 15A15030171C5B3800CF403F /* lamber_frag.glsl */; };
 		15A15033171C5B3800CF403F /* lamber_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 15A15031171C5B3800CF403F /* lamber_vert.glsl */; };
@@ -101,6 +102,7 @@
 		154EA11C16CC104D006E7F9A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		154EA11E16CC1061006E7F9A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		154EA12016CC1084006E7F9A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		156EF99A17B3ABD100F8E7CE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		15747B7A16DBC58A001EFA87 /* btnStart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btnStart.png; path = images/btnStart.png; sourceTree = "<group>"; };
 		15A15030171C5B3800CF403F /* lamber_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lamber_frag.glsl; path = shaders/lamber_frag.glsl; sourceTree = "<group>"; };
 		15A15031171C5B3800CF403F /* lamber_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = lamber_vert.glsl; path = shaders/lamber_vert.glsl; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		154EA0DD16CBF5D0006E7F9A = {
 			isa = PBXGroup;
 			children = (
+				156EF99A17B3ABD100F8E7CE /* README.md */,
 				154EA0F316CBF5D0006E7F9A /* ES2_iOS */,
 				154EA0E816CBF5D0006E7F9A /* Frameworks */,
 				154EA0E716CBF5D0006E7F9A /* Products */,
@@ -364,6 +367,7 @@
 				0122FAA417B29201007D86B4 /* globe@2x.png in Resources */,
 				0122FAA717B2A06F007D86B4 /* background.png in Resources */,
 				0122FAA817B2A06F007D86B4 /* background@2x.png in Resources */,
+				156EF99B17B3ABD100F8E7CE /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

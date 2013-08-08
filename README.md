@@ -9,8 +9,9 @@ Currently supporting:
 - texture rendering through trimesh
 - basic multitouch support
 - screen rotation
+- working timeline
 
 So really basic at the moment.
-Most stuff is implemented when I need it.
+Most stuff is implemented when needed.
 
 Don't forget to set your cinder_path in the project settings
