@@ -1,6 +1,8 @@
 ES2_iOS
 =======
 
+** Project is obsolete using the new Cinder glnext which has ES2 support  **
+
 iOS ES2 project with partial support for Cinder
 
 Started from the basic XCode OpenGL ES2 project and included boost & Cinder
